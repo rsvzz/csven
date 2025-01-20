@@ -1,6 +1,6 @@
 #include <gtk-4.0/gtk/gtk.h>
-#include "stack.h"
-#include "queue.h"
+#include <questk/stack.h>
+#include <questk/queue.h>
 typedef struct
 {
     GtkButton *btn;

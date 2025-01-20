@@ -1,5 +1,5 @@
 #pragma once
-#include "queue.h"
+#include <questk/queue.h>
 #include <gtk-4.0/gtk/gtk.h>
 typedef struct 
 {

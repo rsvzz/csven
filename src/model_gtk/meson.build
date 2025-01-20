@@ -1,0 +1,19 @@
+inc_src = '../../include'
+src_files = files([
+    'comperetoindex.c',
+    'createtobutton.c',
+    'gridtobutton.c'
+])
+
+gtk_dep = dependency('gtk4')
+questk_dep = declare_dependency(
+  #include_directories: ['/usr/local/include'],
+  link_args: ['-L/usr/local/lib/x86_64-linux-gnu', '-lquestk']
+  )
+
+mgtk_dep = static_library(
+    'mgtk', 
+    sources: src_files,
+    include_directories:inc_src,
+    dependencies: [gtk_dep, questk_dep]
+)
