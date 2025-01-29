@@ -2,7 +2,9 @@ inc_src = '../../include'
 src_files = files([
     'comperetoindex.c',
     'createtobutton.c',
-    'gridtobutton.c'
+    'gridtobutton.c',
+    'createtobtnforgrid.c',
+    'maptogridwithname.c'
 ])
 
 gtk_dep = dependency('gtk4')

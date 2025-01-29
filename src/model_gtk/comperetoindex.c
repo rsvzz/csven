@@ -12,21 +12,22 @@ ItemBtnGame *get_index_title_button_char(Queue *list, GtkButton *btn)
         return NULL;
 
     Queue *aux = list;
-
     while (aux != NULL)
     {
 
         ItemBtnGame *item = (ItemBtnGame *)aux->item;
+
         if (item->status == 0 && item->ctr == name[0])
         {
             item_result = item;
-            if(aux->next == NULL)
+            if (aux->next == NULL)
                 item_result->isEnd = 1;
-                
+
             aux = NULL;
         }
-        else if(item->status == 0 && item->ctr != name[0]){
-             aux = NULL;
+        else if (item->status == 0 && item->ctr != name[0])
+        {
+            aux = NULL;
         }
         else
         {

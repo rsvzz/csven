@@ -2,13 +2,12 @@
 #include "../../include/comparetoindex.h"
 #include <stdlib.h>
 #include <time.h>
-void on_button_clicked(GtkButton*, gpointer);
-void generic_char_to_button(Stack*, const char *);
+
+// define func I don't need this in .h
+void on_button_clicked(GtkButton *, gpointer);
+//void generic_char_to_button(Stack *, const char *);
 int set_button_char(Stack *, const char *, int);
-typedef struct {
-    GtkButton *btn_restore;
-    Queue* list;
-} ItemListRestore;
+
 int set_button_char(Stack *list, const char *ch, int nrandom)
 {
     Stack *aux = list;
@@ -66,8 +65,8 @@ void on_button_clicked(GtkButton *btn, gpointer data)
     const char *name = gtk_button_get_label(btn);
     if (name != NULL)
     {
-        ItemListRestore *saux =(ItemListRestore*)data;
-        Queue* aux = saux->list;
+        ItemListRestore *saux = (ItemListRestore *)data;
+        Queue *aux = *saux->list;
 
         ItemBtnGame *item = get_index_title_button_char(aux, btn);
         if (item != NULL)
@@ -78,11 +77,9 @@ void on_button_clicked(GtkButton *btn, gpointer data)
             //gtk_widget_set_size_request(GTK_WIDGET(item->btn), 55, 55);
             item->status = 1;
 
-            if(item->isEnd == 1)
-                 gtk_widget_add_css_class(GTK_WIDGET(saux->btn_restore), "button_complete");
-            
+            if (item->isEnd == 1)
+                gtk_widget_add_css_class(GTK_WIDGET(saux->btn_restore), "button_complete");
         }
-
     }
 }
 void map_grid_create_game(const char *name, GtkGrid *grid, Stack *list, Queue *list_t, GtkButton *btn)
@@ -94,7 +91,7 @@ void map_grid_create_game(const char *name, GtkGrid *grid, Stack *list, Queue *l
 
     ItemListRestore *data = malloc(sizeof(ItemListRestore));
     data->btn_restore = btn;
-    data->list = list_t;
+    data->list = &list_t;
 
     for (size_t i = 0; i < y; i++)
     {
@@ -103,7 +100,7 @@ void map_grid_create_game(const char *name, GtkGrid *grid, Stack *list, Queue *l
         {
             GtkWidget *btn = gtk_button_new();
             gtk_widget_add_css_class(btn, "game_btn");
-           
+
             g_signal_connect(GTK_BUTTON(btn), "clicked", G_CALLBACK(on_button_clicked), (gpointer)data);
             ItemGame *item = malloc(sizeof(ItemGame));
             item->btn = GTK_BUTTON(btn);

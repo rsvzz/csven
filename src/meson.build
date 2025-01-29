@@ -1,5 +1,7 @@
 inc_src = '../include'
+#subdir('model')
 subdir('model_gtk')
+
 
 #questk_dep = dependency('questk', required: true)
 questk_dep = declare_dependency(

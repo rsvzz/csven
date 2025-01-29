@@ -5,7 +5,6 @@
 
 void create_button_size_char(const char *name, GtkBox *box, Queue **list)
 {
-
     for (int i = 0; name[i] != '\0'; i++)
     {
         char ch = name[i];
@@ -20,19 +19,19 @@ void create_button_size_char(const char *name, GtkBox *box, Queue **list)
         item->ctr = ch;
         item->index = i;
         item->status = 0;
+
         queue_append(list, item);
         gtk_widget_set_size_request(btn, 50, 50);
         gtk_box_append(box, btn);
     }
-        /*
-        Queue *aux = list;
-        g_print("QUEUE RUN \n");
-        while (aux != NULL)
-        {
-                g_print("# %c \n", ((ItemBtnGame*)aux->item)->ctr);
-                aux = aux->next;
-        }
-        free(aux);
-        */
-        
+    /*
+    Queue *aux = list;
+    g_print("QUEUE RUN \n");
+    while (aux != NULL)
+    {
+            g_print("# %c \n", ((ItemBtnGame*)aux->item)->ctr);
+            aux = aux->next;
+    }
+    free(aux);
+    */
 }
