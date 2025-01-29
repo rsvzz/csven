@@ -1,7 +1,7 @@
 inc_src = '../include'
 #subdir('model')
 subdir('model_gtk')
-
+subdir('win')
 
 #questk_dep = dependency('questk', required: true)
 questk_dep = declare_dependency(
@@ -16,7 +16,7 @@ executable('appgame',
   include_directories: [inc_src],
   dependencies: [gtk_dep, questk_dep],
    link_with: [
-      mgtk_dep
+      mgtk_dep, wingtk_dep
    ],
    install: true
   #link_args: ['/SUBSYSTEM:WINDOWS'] #windows,,
