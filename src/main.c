@@ -5,11 +5,14 @@
 #include "../include/createtobtnforgrid.h"
 #include "../include/create_verb_win.h"
 #include <questk/stack.h>
+#include <glib.h>
 #include <stdlib.h>
 #include <string.h>
 /// @brief dont use
 /// @param
 void clear_grid(GtkGrid *);
+gpointer restore_game(gpointer gdata);
+gpointer create_to_name_in_grid(gpointer gdata);
 
 void clear_grid(GtkGrid *grid)
 {
@@ -25,10 +28,9 @@ void clear_grid(GtkGrid *grid)
   }
 }
 
-void on_button_restare(GtkWidget *btn, gpointer user_data)
+gpointer restore_game(gpointer gdata)
 {
-  ItemListRestore *info = (ItemListRestore *)user_data;
-  // Stack *map_btn = NULL;
+  ItemListRestore *info = (ItemListRestore *)gdata;
   GtkWidget *child = gtk_widget_get_first_child(GTK_WIDGET(info->box_name));
   while (child != NULL)
   {
@@ -43,14 +45,13 @@ void on_button_restare(GtkWidget *btn, gpointer user_data)
   gtk_widget_remove_css_class(GTK_WIDGET(info->btn_restore), "button_complete");
   gtk_widget_add_css_class(GTK_WIDGET(info->btn_restore), "button");
   gtk_widget_set_sensitive(GTK_WIDGET(info->btn_restore), FALSE);
+
+  return NULL;
 }
 
-void on_entry_active(GtkEntry *entry, gpointer user_data)
+gpointer create_to_name_in_grid(gpointer gdata)
 {
-  // g_print("Llega active entry");
-
-  ItemListRestore *info = (ItemListRestore *)user_data;
-  /**/
+  ItemListRestore *info = (ItemListRestore *)gdata;
   GtkEntryBuffer *buffer = gtk_entry_get_buffer(info->txt_name);
   const char *name = gtk_entry_buffer_get_text(buffer);
   char *str = (char *)malloc(strlen(name) + 1);
@@ -77,7 +78,7 @@ void on_entry_active(GtkEntry *entry, gpointer user_data)
       gtk_widget_unparent(child);
       child = aux;
     }
-    //limpiando palabra titulo del juego
+    // limpiando palabra titulo del juego
     if (info->auxt != NULL)
     {
       Queue *aux = info->auxt;
@@ -93,6 +94,22 @@ void on_entry_active(GtkEntry *entry, gpointer user_data)
     gtk_entry_buffer_set_text(buffer, "", 0);
     gtk_entry_set_buffer(info->txt_name, buffer);
   }
+
+  return NULL;
+}
+
+void on_button_restare(GtkWidget *btn, gpointer user_data)
+{
+  GThread *r_game = g_thread_new("create_game", restore_game, user_data);
+  g_thread_join(r_game);
+  g_thread_unref(r_game);
+}
+
+void on_entry_active(GtkEntry *entry, gpointer user_data)
+{
+  GThread *create_game = g_thread_new("create_game", create_to_name_in_grid, user_data);
+  g_thread_join(create_game);
+  g_thread_unref(create_game);
 }
 
 static void on_menu_item_activated(GSimpleAction *action, GVariant *parameter, gpointer user_data)
@@ -142,8 +159,8 @@ void activate(GtkApplication *app, gpointer user_data)
     add style css application
   */
   GtkCssProvider *css_provider = gtk_css_provider_new();
-  // gtk_css_provider_load_from_path(css_provider, "/usr/share/appgame/style/style.css"); //deb
-  gtk_css_provider_load_from_path(css_provider, "style/style.css"); // local
+  gtk_css_provider_load_from_path(css_provider, "/usr/share/appgame/style/style.css"); // uso final de compilacion he instalacion
+  //gtk_css_provider_load_from_path(css_provider, "style/style.css"); // descomentar para compilar local
   gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                              GTK_STYLE_PROVIDER(css_provider),
                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -165,9 +182,13 @@ void activate(GtkApplication *app, gpointer user_data)
   glist->tlist = &glist->auxt;
 
   // creando los bottones en el gridor default
-  createtobutonforgrid(glist);
-  // crear nuevo struct que manipule los parametros del clicked
-  //  g_signal_connect(btnStart, "clicked", G_CALLBACK(on_button_start), (gpointer)dgame);
+  GThread *th_game = g_thread_new("th_game", createtobutonforgrid, (gpointer)glist);
+  g_thread_join(th_game);
+  // clear GThread
+  g_thread_unref(th_game);
+  // createtobutonforgrid(glist);
+  //  crear nuevo struct que manipule los parametros del clicked
+  //   g_signal_connect(btnStart, "clicked", G_CALLBACK(on_button_start), (gpointer)dgame);
   g_signal_connect(btn_restare, "clicked", G_CALLBACK(on_button_restare), (gpointer)glist);
   g_signal_connect(txt_name, "activate", G_CALLBACK(on_entry_active), (gpointer)glist);
   gtk_box_append(GTK_BOX(boxContent), txt_name);

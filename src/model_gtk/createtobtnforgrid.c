@@ -6,8 +6,9 @@
 
 void on_click_button_restore(GtkButton *, gpointer);
 
-void createtobutonforgrid(ItemListRestore *data)
+gpointer createtobutonforgrid(gpointer gdata)
 {
+    ItemListRestore *data = (ItemListRestore*)gdata;
     int n = 0;
 
     for (size_t i = 0; i < data->y; i++)
@@ -30,6 +31,7 @@ void createtobutonforgrid(ItemListRestore *data)
             gtk_grid_attach(data->grid, btn, i, j, 1, 1);
         }
     }
+    return NULL;
 }
 
 void set_grid_for_name_game(ItemListRestore *data)

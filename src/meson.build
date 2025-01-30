@@ -10,11 +10,12 @@ questk_dep = declare_dependency(
 
  install_data('../style/style.css', install_dir: get_option('prefix') / '/usr/share/appgame/style')
 gtk_dep = dependency('gtk4')
+glib_dep = dependency('glib-2.0')
 
 executable('appgame',
   sources: 'main.c',
   include_directories: [inc_src],
-  dependencies: [gtk_dep, questk_dep],
+  dependencies: [gtk_dep, questk_dep, glib_dep],
    link_with: [
       mgtk_dep, wingtk_dep
    ],

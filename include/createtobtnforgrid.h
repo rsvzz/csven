@@ -6,7 +6,7 @@
 /// @param ItemListRestore GtkButton restore list queue
 /// @param  x eje --- ---
 /// @param  y eje |
-void createtobutonforgrid(ItemListRestore *);
+gpointer createtobutonforgrid(gpointer);
 /// @brief Agrega la palabra al juego en el grid
 /// @param  ItemListRestore list
 void set_grid_for_name_game(ItemListRestore*);
