@@ -1,0 +1,59 @@
+{
+  "id": "org.flatpak.csven",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "47",
+  "base-version": "0.0.3",
+  "sdk": "org.gnome.Sdk",
+  "command": "appgame",
+  "finish-args": [
+      "--share=ipc",
+      "--socket=wayland",
+      "--socket=x11",
+      "--device=dri",
+      "--env=DISPLAY=:0",
+    "--env=LD_LIBRARY_PATH=/app/lib"
+  ],
+  "modules": [
+    {
+      "name": "questk",
+      "buildsystem": "simple",
+      "sources": [
+        {
+          "type": "file",
+          "path": "/usr/local/lib/x86_64-linux-gnu/libquestk.so",
+          "dest": "libquestk.so"
+        },
+        {
+          "type": "dir",
+          "path": "/usr/local/include",
+          "dest": "include"
+        }
+      ],
+      "build-commands": [
+        "cp -r include /app/include",
+        "cp -r libquestk.so /app/lib"
+      ]
+    },
+    {
+      "name": "appgame",
+      "buildsystem": "meson",
+      "config-opts": [
+        "--prefix=/app",
+        "--buildtype=release",
+        "--libdir=lib"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": ".."
+        }
+      ],
+      "build-options": {
+        "env": {
+          "LIBRARY_PATH": "/app/lib",
+          "C_INCLUDE_PATH": "/app/include"
+        }
+      }
+    }
+  ]
+}

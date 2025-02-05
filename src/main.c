@@ -159,7 +159,8 @@ void activate(GtkApplication *app, gpointer user_data)
     add style css application
   */
   GtkCssProvider *css_provider = gtk_css_provider_new();
-  gtk_css_provider_load_from_path(css_provider, "/usr/share/appgame/style/style.css"); // uso final de compilacion he instalacion
+  //gtk_css_provider_load_from_path(css_provider, "/usr/share/appgame/style/style.css"); // uso final de compilacion he instalacion
+  gtk_css_provider_load_from_path(css_provider, "/app/share/appgame/style/style.css"); // para entorno flatpak
   //gtk_css_provider_load_from_path(css_provider, "style/style.css"); // descomentar para compilar local
   gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                              GTK_STYLE_PROVIDER(css_provider),
