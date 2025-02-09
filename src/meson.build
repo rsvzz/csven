@@ -8,12 +8,12 @@ questk_dep = declare_dependency(
   link_args: ['-L/usr/local/lib/x86_64-linux-gnu', '-lquestk']
 )
 
- #install_data('../style/style.css', install_dir: get_option('prefix') / '/app/share/appgame/style')
- install_data('../style/style.css', install_dir: get_option('prefix') / '/usr/share/appgame/style')
+ install_data('../style/style.css', install_dir: get_option('prefix') / '/app/share/csven/style')
+ #install_data('../style/style.css', install_dir: get_option('prefix') / '/usr/share/csven/style')
 gtk_dep = dependency('gtk4')
 glib_dep = dependency('glib-2.0')
 
-executable('appgame',
+executable('csven',
   sources: 'main.c',
   include_directories: [inc_src],
   dependencies: [gtk_dep, questk_dep, glib_dep],

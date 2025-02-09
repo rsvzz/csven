@@ -6,7 +6,7 @@ BIN = bin
 USR_DIR = $(BIN)/usr
 USR_BIN = $(USR_DIR)/bin
 USR_SHARE = $(USR_DIR)/share
-USR_SHARE_APPGAME = $(USR_SHARE)/appgame
+USR_SHARE_APPGAME = $(USR_SHARE)/csven
 
 
 #uso de c11 para compatibilidad
