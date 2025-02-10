@@ -1,0 +1,5 @@
+[Runtime]
+name=org.flathud.csven.Debug
+
+[ExtensionOf]
+ref=app/org.flathud.csven/x86_64/stable

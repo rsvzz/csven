@@ -1,5 +1,5 @@
 {
-  "id": "org.flatpak.csven",
+  "id": "org.flathud.csven",
   "runtime": "org.gnome.Platform",
   "runtime-version": "47",
   "base-version": "0.0.3",
@@ -14,44 +14,49 @@
       "--socket=fallback-x11",
       "--device=dri",
       "--env=DISPLAY=:0",
-    "--env=LD_LIBRARY_PATH=/app/lib"
+      "--env=GTK_THEME=Adwaita:dark",
+      "--env=LD_LIBRARY_PATH=/app/lib"
   ],
   "modules": [
     {
       "name": "questk",
+      "buildsystem": "meson",
+      "config-opts": [
+        "--prefix=/app",
+        "--buildtype=release",
+        "--libdir=lib"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/rsvzz/simple_str_list.git",
+          "branch":"main"
+        }
+      ]
+    },
+    {
+      "name": "cpfiles",
       "buildsystem": "simple",
       "sources": [
         {
-          "type": "file",
-          "path": "/usr/local/lib/libquestk.so",
-          "dest": "libquestk.so"
-        },
-        {
-          "type": "dir",
-          "path": "/usr/local/include",
-          "dest": "include"
-        },
-        {
           "type":"file",
-          "path":"../data/org.flatpak.csven.desktop",
+          "path":"../data/org.flathud.csven.desktop",
           "dest":"csven"
         },
         {
           "type":"file",
-          "path":"../data/org.flatpak.csven.png",
+          "path":"../data/org.flathud.csven.png",
           "dest":"icon"
         }
 
       ],
       "build-commands": [
-        "install -Dm755 csven/org.flatpak.csven.desktop /app/share/applications/org.flatpak.csven.desktop",
-        "install -Dm644 icon/org.flatpak.csven.png /app/share/icons/hicolor/scalable/apps/org.flatpak.csven.png",
-        "cp -r include /app/include",
-        "install -Dm644 libquestk.so/libquestk.so /app/lib/libquestk.so"
+        "install -Dm755 csven/org.flathud.csven.desktop /app/share/applications/org.flathud.csven.desktop",
+        "install -Dm644 icon/org.flathud.csven.png /app/share/icons/hicolor/scalable/apps/org.flathud.csven.png"
       ]
     },
     {
-      "name": "appgame",
+      "name": "csven",
       "buildsystem": "meson",
       "config-opts": [
         "--prefix=/app",
