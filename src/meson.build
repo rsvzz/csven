@@ -5,11 +5,21 @@ subdir('win')
 
 #questk_dep = dependency('questk', required: true)
 questk_dep = declare_dependency(
-  link_args: ['-L/usr/local/lib/x86_64-linux-gnu', '-lquestk']
+  link_args: ['-L/usr/local/lib', '-lquestk']
 )
 
- install_data('../style/style.css', install_dir: get_option('prefix') / '/app/share/csven/style')
- #install_data('../style/style.css', install_dir: get_option('prefix') / '/usr/share/csven/style')
+ #install_data('../style/style.css', install_dir: get_option('prefix') / '/app/share/csven/style')
+ install_data('../style/org.flathud.csven.css', install_dir: get_option('prefix') / 'share/csven/style')
+ # Verifica el sistema operativo
+sistema_operativo = host_machine.system()
+
+# Instala el archivo solo en Linux
+if sistema_operativo == 'linux'
+   install_data('../data/org.flathud.csven.desktop', install_dir: get_option('prefix') / 'share/applications')
+   install_data('../data/org.flathud.csven.png', install_dir: get_option('prefix') / 'share/icons/hicolor/scalable/apps')
+endif
+
+ 
 gtk_dep = dependency('gtk4')
 glib_dep = dependency('glib-2.0')
 

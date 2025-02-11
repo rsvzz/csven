@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=csven
-Comment=Esta es una aplicacion para aprender palabras en ingles jugando hasta completar la palabra como en un rompe cabeza.
-Exec=csven
-Icon=org.flatpak.csven.png
-Terminal=false
-Type=Application
-Categories=Education;
-StartupNotify=true

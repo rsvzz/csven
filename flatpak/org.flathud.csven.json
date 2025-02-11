@@ -35,27 +35,6 @@
       ]
     },
     {
-      "name": "cpfiles",
-      "buildsystem": "simple",
-      "sources": [
-        {
-          "type":"file",
-          "path":"../data/org.flathud.csven.desktop",
-          "dest":"csven"
-        },
-        {
-          "type":"file",
-          "path":"../data/org.flathud.csven.png",
-          "dest":"icon"
-        }
-
-      ],
-      "build-commands": [
-        "install -Dm755 csven/org.flathud.csven.desktop /app/share/applications/org.flathud.csven.desktop",
-        "install -Dm644 icon/org.flathud.csven.png /app/share/icons/hicolor/scalable/apps/org.flathud.csven.png"
-      ]
-    },
-    {
       "name": "csven",
       "buildsystem": "meson",
       "config-opts": [
@@ -66,9 +45,8 @@
       "sources": [
         {
           "type": "dir",
-          "path": ".."
+          "path" :".."
         }
-       
       ],
       "build-options": {
         "env": {

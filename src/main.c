@@ -117,10 +117,14 @@ static void on_menu_item_activated(GSimpleAction *action, GVariant *parameter, g
   // const gchar *action_name = g_action_get_name(G_ACTION(action));
   create_verb_window(GTK_WINDOW(user_data), "Create Verbs to List", FALSE);
 }
-
+static GtkWidget *window = NULL;
 void activate(GtkApplication *app, gpointer user_data)
 {
-  GtkWidget *window;
+  //verificacion de ventana main para que solo una vez este abierta
+  if (window != NULL) {
+    gtk_window_present(GTK_WINDOW(window));
+    return;
+  }
 
   window = gtk_application_window_new(app);
   gtk_window_set_title(GTK_WINDOW(window), "Window");
@@ -142,7 +146,7 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_menu_button_set_popover(GTK_MENU_BUTTON(btnMenu), popover_menu);
   // g_signal_connect_swapped(btnMenu, "clicked", G_CALLBACK(on_clicked_menu), (gpointer)popover);
 
-  gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btnMenu);
+  //gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btnMenu); //comentar para flatpak stable
   gtk_window_set_titlebar(GTK_WINDOW(window), header);
 
   GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
@@ -151,7 +155,7 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_entry_set_max_length(GTK_ENTRY(txt_name), 30);
   // GtkWidget *btnStart = gtk_button_new_with_label("Start");
   GtkWidget *btn_restare = gtk_button_new_with_label("Restore");
-  gtk_button_set_icon_name(GTK_BUTTON(btn_restare), "emblem-synchronizing-symbolic");
+  gtk_button_set_icon_name(GTK_BUTTON(btn_restare), "view-refresh-symbolic");
   gtk_widget_set_sensitive(btn_restare, FALSE);
   GtkWidget *boxV = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
   GtkWidget *grid = gtk_grid_new();
@@ -159,8 +163,18 @@ void activate(GtkApplication *app, gpointer user_data)
     add style css application
   */
   GtkCssProvider *css_provider = gtk_css_provider_new();
-  gtk_css_provider_load_from_path(css_provider, "/usr/share/csven/style/style.css"); // uso final de compilacion he instalacion
-  //gtk_css_provider_load_from_path(css_provider, "/app/share/csven/style/style.css"); // para entorno flatpak
+  char *exe_path = g_file_read_link("/proc/self/exe", NULL); // Linux
+  if (!exe_path) {
+      g_printerr("No se pudo obtener la ruta del ejecutable.\n");
+      return;
+  }
+  char *css_path;
+
+  css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/org.flathud.csven.css", NULL);
+  g_free(exe_path);
+
+  //gtk_css_provider_load_from_path(css_provider, "/usr/share/csven/style/style.css"); // uso final de compilacion he instalacion
+  gtk_css_provider_load_from_path(css_provider, css_path); // para entorno flatpak
   //gtk_css_provider_load_from_path(css_provider, "style/style.css"); // descomentar para compilar local
   gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                              GTK_STYLE_PROVIDER(css_provider),
