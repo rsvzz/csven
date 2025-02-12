@@ -170,7 +170,7 @@ void activate(GtkApplication *app, gpointer user_data)
   }
   char *css_path;
 
-  css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/org.flathud.csven.css", NULL);
+  css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/io.github.rsvzz.csven.css", NULL);
   g_free(exe_path);
 
   //gtk_css_provider_load_from_path(css_provider, "/usr/share/csven/style/style.css"); // uso final de compilacion he instalacion

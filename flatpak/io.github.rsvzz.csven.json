@@ -29,8 +29,8 @@
       "sources": [
         {
           "type": "git",
-          "url": "https://github.com/rsvzz/simple_str_list.git",
-          "branch":"main"
+          "url": "https://github.com/rsvzz/libquestk.git",
+          "branch":"stable"
         }
       ]
     },
