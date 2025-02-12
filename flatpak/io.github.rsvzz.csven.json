@@ -1,5 +1,5 @@
 {
-  "id": "org.flathud.csven",
+  "id": "io.github.rsvzz.csven",
   "runtime": "org.gnome.Platform",
   "runtime-version": "47",
   "base-version": "0.0.3",
