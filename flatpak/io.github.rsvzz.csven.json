@@ -44,8 +44,9 @@
       ],
       "sources": [
         {
-          "type": "dir",
-          "path" :".."
+          "type": "git",
+          "url":"https://github.com/rsvzz/c_sven.git",
+          "branch":"main"
         }
       ],
       "build-options": {

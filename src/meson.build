@@ -9,14 +9,14 @@ questk_dep = declare_dependency(
 )
 
  #install_data('../style/style.css', install_dir: get_option('prefix') / '/app/share/csven/style')
- install_data('../style/org.flathud.csven.css', install_dir: get_option('prefix') / 'share/csven/style')
+ install_data('../style/io.github.rsvzz.csven.css', install_dir: get_option('prefix') / 'share/csven/style')
  # Verifica el sistema operativo
 sistema_operativo = host_machine.system()
 
 # Instala el archivo solo en Linux
 if sistema_operativo == 'linux'
-   install_data('../data/org.flathud.csven.desktop', install_dir: get_option('prefix') / 'share/applications')
-   install_data('../data/org.flathud.csven.png', install_dir: get_option('prefix') / 'share/icons/hicolor/scalable/apps')
+   install_data('../data/io.github.rsvzz.csven.desktop', install_dir: get_option('prefix') / 'share/applications')
+   install_data('../data/io.github.rsvzz.csven.png', install_dir: get_option('prefix') / 'share/icons/hicolor/scalable/apps')
 endif
 
  
