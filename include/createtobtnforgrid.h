@@ -1,7 +1,7 @@
 #pragma once
 #include <gtk-4.0/gtk/gtk.h>
 #include <questk/queue.h>
-#include <str_data.h>
+#include "str_data.h"
 /// @brief Generar btn para el grid
 /// @param ItemListRestore GtkButton restore list queue
 /// @param  x eje --- ---

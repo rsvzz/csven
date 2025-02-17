@@ -1,3 +1,4 @@
+
 inc_src = '../../include'
 src_files = files([
     'comperetoindex.c',
@@ -16,6 +17,5 @@ questk_dep = declare_dependency(
 mgtk_dep = static_library(
     'mgtk', 
     sources: src_files,
-    include_directories:inc_src,
     dependencies: [gtk_dep, questk_dep]
 )

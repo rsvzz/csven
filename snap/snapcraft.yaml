@@ -1,0 +1,34 @@
+name: csven
+version: '0.1'
+summary: aprender palabras en ingles
+description: Esta app te permite deletrar una palabra en ingles para que la ordenes como en un rempecabeza
+
+base: core22
+confinement: strict
+grade: stable
+
+apps:
+  csven:
+    command: bin/csven
+
+parts:
+  questk:
+    plugin: meson
+    source: https://github.com/rsvzz/libquestk.git
+    source-type: git
+    source-tag: 0.0.1
+    build-packages:
+      - gcc
+      - meson
+      - ninja-build
+
+  csven:
+    plugin: meson
+    source: .
+    build-packages:
+      - meson
+      - ninja-build
+      - libgtk-4-dev
+    stage-packages:
+      - libgtk-4-1
+ 
