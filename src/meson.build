@@ -1,4 +1,4 @@
-inc_src = '../include'
+inc_src = include_directories('../src', '../include')
 #subdir('model')
 subdir('model_gtk')
 subdir('win')

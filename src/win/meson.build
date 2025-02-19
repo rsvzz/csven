@@ -1,4 +1,4 @@
-inc_src = '../../include'
+inc_src = include_directories('../../src', '../../include')
 src_files = files('cverbwin.c')
 
 gtk_dep = dependency('gtk4')
@@ -10,6 +10,6 @@ questk_dep = declare_dependency(
 wingtk_dep = static_library(
     'mgtk',
     sources: src_files,
-    include_directories: inc_src,
+    include_directories: [inc_src],
     dependencies: [gtk_dep, questk_dep],
 )
