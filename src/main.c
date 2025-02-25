@@ -130,8 +130,7 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_window_set_title(GTK_WINDOW(window), "Window");
   gtk_window_set_default_size(GTK_WINDOW(window), 1280, 720);
   GtkWidget *header = gtk_header_bar_new();
-  gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("Aprender Ingles gtk/c"));
-
+  gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn Words"));
   // GtkWidget *mnu = gtk_popover_new();
   GtkWidget *btnMenu = gtk_menu_button_new();
   gtk_menu_button_set_icon_name(GTK_MENU_BUTTON(btnMenu), "open-menu-symbolic");
@@ -235,7 +234,11 @@ int main(int argc, char **argv)
   GtkApplication *app;
   int status;
 
-  app = gtk_application_new("local.gtk.c_sven", G_APPLICATION_DEFAULT_FLAGS);
+  app = gtk_application_new("io.github.rsvzz.csven", G_APPLICATION_DEFAULT_FLAGS);
+
+  //GtkSettings *settings = gtk_settings_get_default();
+  //g_object_set(settings, "gtk-font-name", "Monospace 12", NULL);
+
   g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
   status = g_application_run(G_APPLICATION(app), argc, argv);
   g_object_unref(app);

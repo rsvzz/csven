@@ -4,12 +4,14 @@ summary: aprender palabras en ingles
 description: Esta app te permite deletrar una palabra en ingles para que la ordenes como en un rempecabeza
 
 base: core24
-confinement: strict
+confinement: classic
 grade: stable
 
 apps:
   csven:
-    command: usr/local/bin/csven
+    command: bin/csven
+    desktop: ${SNAPCRAFT_STAGE}/share/applications/io.github.rsvzz.csven.desktop
+    plugs: [x11, wayland, desktop]
 
 parts:
   questk:
@@ -18,6 +20,7 @@ parts:
     source-type: git
     source-tag: 0.0.1
     meson-parameters:
+      - --prefix=/
       - --buildtype=release
     build-packages:
       - meson
@@ -25,13 +28,17 @@ parts:
   csven:
     plugin: meson
     source: .
+    meson-parameters:
+      - --prefix=/
+      - --buildtype=release
     after: [questk]
     build-environment:
-      - C_INCLUDE_PATH: ${SNAPCRAFT_STAGE}/usr/local/include
-      - LIBRARY_PATH: ${SNAPCRAFT_STAGE}/usr/local/lib/x86_64-linux-gnu
+      - C_INCLUDE_PATH: ${SNAPCRAFT_STAGE}/include
+      - LIBRARY_PATH: ${SNAPCRAFT_STAGE}/lib/x86_64-linux-gnu
     build-packages:
       - meson
       - ninja-build
       - libgtk-4-dev
     stage-packages:
       - libgtk-4-1
+      - fontconfig
