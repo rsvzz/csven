@@ -15,8 +15,6 @@ sistema_operativo = host_machine.system()
 
 # Instala el archivo solo en Linux
 if sistema_operativo == 'linux'
-
-   #install_subdir('../fonts/monospace-font', install_dir: get_option('prefix') / 'share/fonts')
    install_data('../data/io.github.rsvzz.csven.desktop', install_dir: get_option('prefix') / 'share/applications')
    install_data('../data/io.github.rsvzz.csven.png', install_dir: get_option('prefix') / 'share/icons/hicolor/scalable/apps')
 endif

@@ -2,7 +2,8 @@
 Name=csven
 Comment=Order English words
 Exec=csven
-Icon=${SNAP}/share/icons/hicolor/scalable/apps/io.github.rsvzz.csven.png
+#Icon=${SNAP}/share/icons/hicolor/scalable/apps/io.github.rsvzz.csven.png
+Icon=io.github.rsvzz.csven.png
 Terminal=false
 Type=Application
 Categories=Education;
