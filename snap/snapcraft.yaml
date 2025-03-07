@@ -1,7 +1,7 @@
 name: csven
-version: '0.0.3'
-summary: aprender palabras en ingles
-description: Esta app te permite deletrar una palabra en ingles para que la ordenes como en un rempecabeza
+version: '0.0.4'
+summary: Order English words
+description: CSVEN allows you to add an English word to mess it up and put it back together to learn how to write it through a game
 
 base: core24
 confinement: classic
