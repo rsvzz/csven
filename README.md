@@ -6,7 +6,7 @@ Aprender palabras en ingles jugando un juego de deletriar letra por letra
     questk
     
 # Install questk
-    git clone https://github.com/rsvzz/simple_str_list.git
+    git clone https://github.com/rsvzz/libquestk.git
     cd src/model
     meson build
     ninja -C build

@@ -1,17 +1,21 @@
 name: csven
-version: '0.0.4'
+version: '0.0.5'
 summary: Order English words
 description: CSVEN allows you to add an English word to mess it up and put it back together to learn how to write it through a game
 
 base: core24
-confinement: classic
+confinement: strict
 grade: stable
 
 apps:
   csven:
     command: bin/csven
     desktop: ${SNAPCRAFT_STAGE}/share/applications/io.github.rsvzz.csven.desktop
-    plugs: [x11, wayland, desktop]
+    plugs: 
+    - x11
+    - wayland
+    - desktop
+    - desktop-legacy
 
 parts:
   questk:
