@@ -13,7 +13,7 @@ USR_SHARE_APPGAME = $(USR_SHARE)/csven
 CC = gcc -std=c11
 TARGET = $(USR_BIN)/csven
 #uso de libreria dinamica libquestk.so solo es para manejar stack y queue  agregare el reposutorio mas tarde y agregare el link
-LIB_SO = -L/lib-lquestk#libs/libquestk.a
+LIB_SO = -lquestk#libs/libquestk.a #need install libquestk .git 
 WIN_OBJS_DIR = $(BIN)/obj
 
 C_SRC_DIR = src
@@ -37,7 +37,6 @@ $(TARGET) : $(OBJ_SRC_FILES)
 	@mkdir -p $(USR_BIN)
 	@mkdir -p $(USR_SHARE)
 	@mkdir -p $(USR_SHARE_APPGAME)
-	@cp -r lib $(USR_DIR)
 	@cp -r style $(USR_SHARE_APPGAME)
 	$(CC) -o $(TARGET) $^ $(CFLAGS) $(LIBS_GTK) $(LIB_SO)
 
@@ -64,8 +63,8 @@ $(WIN_OBJS_DIR)/%.o : $(C_SRC_MODEL_DIR)/%.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 exe :
-	@LD_LIBRARY_PATH=lib ./$(TARGET)
-#	./$(TARGET)
+#	@LD_LIBRARY_PATH=lib ./$(TARGET)
+	./$(TARGET)
 
 
 clean :

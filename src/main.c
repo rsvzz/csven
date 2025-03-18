@@ -127,10 +127,9 @@ void activate(GtkApplication *app, gpointer user_data)
   }
 
   window = gtk_application_window_new(app);
-  gtk_window_set_title(GTK_WINDOW(window), "Window");
-  gtk_window_set_default_size(GTK_WINDOW(window), 1280, 720);
+  gtk_window_set_default_size(GTK_WINDOW(window), 1280, 400);
   GtkWidget *header = gtk_header_bar_new();
-  gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn Words"));
+  gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn Words and Verbs"));
   // GtkWidget *mnu = gtk_popover_new();
   GtkWidget *btnMenu = gtk_menu_button_new();
   gtk_menu_button_set_icon_name(GTK_MENU_BUTTON(btnMenu), "open-menu-symbolic");
@@ -223,9 +222,29 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_widget_set_margin_top(boxContent, 10);
   gtk_widget_set_margin_top(box, 40);
   gtk_widget_set_margin_top(grid, 50);
+  gtk_widget_set_margin_bottom(grid, 30);
   // asignando boxV el grid
+  
+  GtkWidget *box_verbs = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+  GtkWidget *stack = gtk_stack_new();
+  gtk_stack_set_transition_type(GTK_STACK(stack), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
+  gtk_stack_set_transition_duration(GTK_STACK(stack), 200);
 
-  gtk_window_set_child(GTK_WINDOW(window), boxV);
+  GtkWidget *switcher = gtk_stack_switcher_new();
+  gtk_stack_switcher_set_stack(GTK_STACK_SWITCHER(switcher), GTK_STACK(stack));
+
+  GtkWidget *box_page = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+  gtk_box_append(GTK_BOX(box_page), switcher);
+  gtk_box_append(GTK_BOX(box_page), stack);
+
+
+
+  GtkStackPage* p_words = gtk_stack_add_titled(GTK_STACK(stack), boxV, "names", "Words");
+  GtkStackPage* p_verbs = gtk_stack_add_titled(GTK_STACK(stack), box_verbs, "names", "Verbs");
+
+  gtk_widget_set_size_request(GTK_WIDGET(p_words), 100,40);
+
+  gtk_window_set_child(GTK_WINDOW(window), box_page);
   gtk_window_present(GTK_WINDOW(window));
 }
 
