@@ -2,7 +2,7 @@
 Name=csven
 Comment=Order English words
 Exec=csven
-Icon=io.github.rsvzz.csven
+Icon=io.github.rsvzz.csven.png
 Terminal=false
 Type=Application
 Categories=Education;
