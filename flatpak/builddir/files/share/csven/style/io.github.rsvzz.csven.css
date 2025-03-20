@@ -1,0 +1,51 @@
+.title_btn{
+    font-size: 16px;
+    font-style: normal;
+    font-family: monospace;
+}
+
+.txtEntry{
+    font-size: 16px;
+    font-style: normal;
+    font-family: monospace;
+}
+.game_btn{
+    font-size: 18px;
+    font-style: normal;
+    font-family: monospace;
+    border-radius:10px 10px;
+}
+
+.button{
+    font-size: 16px;
+    font-family: monospace;
+    font-style: normal;
+    border-radius:10px 10px;
+    padding: 5px;
+}
+
+.button_complete{
+    font-size: 18px;
+    font-style: normal;
+    border-radius:10px 10px;
+    color: blanchedalmond;
+    background: green;
+}
+
+.game_btn_complete{
+    font-size: 20px;
+    background: rgb(17, 66, 99);
+    color: blanchedalmond;
+    font-style:normal;
+    font-weight: bold;
+    border: 3px solid rgb(3, 17, 43);
+    border-radius:20px 20px;
+}
+
+.game_btn:hover{
+    font-size: 20px;
+    background: rgb(37, 146, 27);
+    color: blanchedalmond;
+    border: 1px solid rgb(6, 44, 1);
+    border-radius:15px 15px;
+}

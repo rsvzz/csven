@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="desktop-application">
+  <id>io.github.rsvzz.csven</id>
+  <name translate="no">csven</name>
+  <summary>Order English words</summary>
+  <description>
+    <p>
+        CSVEN allows you to add an English word to mess it up and put it back together to learn how to write it through a game
+    </p>
+  </description>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <launchable type="desktop-id">io.github.rsvzz.csven.desktop</launchable>
+  
+
+  <developer id="io.github.rsvzz">
+      <name>Ronald Sanchez</name>
+  </developer>
+  <provides>
+    <binary>csven</binary>
+  </provides>
+
+  <url type="homepage">https://github.com/rsvzz/csven</url>
+  <url type="bugtracker">https://github.com/rsvzz/csven.git</url>
+
+  <releases>
+    <release version="0.0.7" date="2025-03-20">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>This version only allows you to spell one word</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+ 
+   <screenshots>
+      <screenshot type="default">
+        <caption>Main window of csven dark</caption>
+        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/c_sven/96106bdf324d51444c53a8dce0651a13f5b0858f/data/screenshot/screenshot-1.png</image>
+        
+      </screenshot>
+      <screenshot>
+        <caption>Main window of csven light</caption>
+        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/c_sven/96106bdf324d51444c53a8dce0651a13f5b0858f/data/screenshot/screenshot-2.png</image>
+      </screenshot>
+  </screenshots>
+
+
+  <content_rating type="oars-1.1" />
+
+
+</component>
