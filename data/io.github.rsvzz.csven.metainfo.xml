@@ -38,12 +38,13 @@
  
    <screenshots>
       <screenshot type="default">
-        <image>https://raw.githubusercontent.com/rsvzz/c_sven/96106bdf324d51444c53a8dce0651a13f5b0858f/data/screenshot/screenshot-1.png</image>
         <caption>Main window of csven dark</caption>
+        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/c_sven/96106bdf324d51444c53a8dce0651a13f5b0858f/data/screenshot/screenshot-1.png</image>
+        
       </screenshot>
       <screenshot>
-        <image>https://raw.githubusercontent.com/rsvzz/c_sven/96106bdf324d51444c53a8dce0651a13f5b0858f/data/screenshot/screenshot-2.png</image>
         <caption>Main window of csven light</caption>
+        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/c_sven/96106bdf324d51444c53a8dce0651a13f5b0858f/data/screenshot/screenshot-2.png</image>
       </screenshot>
   </screenshots>
 
