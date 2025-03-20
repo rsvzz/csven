@@ -22,8 +22,8 @@
     <binary>csven</binary>
   </provides>
 
-  <url type="homepage">https://github.com/rsvzz/c_sven</url>
-  <url type="bugtracker">https://github.com/rsvzz/c_sven.git</url>
+  <url type="homepage">https://github.com/rsvzz/csven</url>
+  <url type="bugtracker">https://github.com/rsvzz/csven.git</url>
 
   <releases>
     <release version="0.0.6" date="2025-03-11">
