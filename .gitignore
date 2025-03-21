@@ -4,5 +4,5 @@
 /builddir
 /libs
 /lib
-/flatpak
 *.snap
+/flatpak
