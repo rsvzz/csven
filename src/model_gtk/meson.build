@@ -4,6 +4,7 @@ src_files = files([
     'createtobutton.c',
     'gridtobutton.c',
     'createtobtnforgrid.c',
+    'createtoverb.c',
     'maptogridwithname.c'
 ])
 

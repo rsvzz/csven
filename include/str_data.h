@@ -1,5 +1,6 @@
 #pragma once
 #include <gtk-4.0/gtk/gtk.h>
+#include <questk/queue.h>
 typedef struct 
 {
     /* data */
@@ -52,3 +53,11 @@ typedef struct
   int y;
   char *name;
 } DataGame;
+
+typedef struct{
+    GtkLabel *present;
+    GtkLabel *past;
+    GtkLabel *participle;
+    GtkLabel *baseing;
+    GtkGrid *grid;
+} ItemVerbs;

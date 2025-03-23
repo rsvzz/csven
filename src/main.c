@@ -4,8 +4,9 @@
 #include "../include/ctogrid.h"
 #include "../include/createtobtnforgrid.h"
 #include "../include/create_verb_win.h"
+#include "../include/createtoverb.h"
 #include <questk/stack.h>
-#include <glib.h>
+#include <glib-2.0/glib.h>
 #include <stdlib.h>
 #include <string.h>
 /// @brief dont use
@@ -237,8 +238,11 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_box_append(GTK_BOX(box_page), switcher);
   gtk_box_append(GTK_BOX(box_page), stack);
 
+  //itemverbs
 
+  ItemVerbs *item_verbs = malloc(sizeof(ItemVerbs));
 
+  load_verb(GTK_BOX(box_verbs), item_verbs);
   GtkStackPage* p_words = gtk_stack_add_titled(GTK_STACK(stack), boxV, "names", "Words");
   GtkStackPage* p_verbs = gtk_stack_add_titled(GTK_STACK(stack), box_verbs, "names", "Verbs");
 

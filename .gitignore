@@ -1,7 +1,8 @@
 /.vscode/
-/bin
-/build
-/builddir
-/libs
-/lib
+/bin/
+/build/
+/builddir/
+/libs/
+/lib/
 *.snap
+/flatpak/

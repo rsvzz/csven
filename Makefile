@@ -25,7 +25,7 @@ LIBS_GTK =  `pkg-config --cflags gtk4` `pkg-config --libs gtk4`#-Llibs -lgtk-4 -
 
 OBJ_SRC_FILES = $(WIN_OBJS_DIR)/createtobutton.o \
 $(WIN_OBJS_DIR)/gridtobutton.o $(WIN_OBJS_DIR)/comperetoindex.o  $(WIN_OBJS_DIR)/maptogridwithname.o \
-$(WIN_OBJS_DIR)/createtobtnforgrid.o $(WIN_OBJS_DIR)/cverbwin.o $(WIN_OBJS_DIR)/main.o
+$(WIN_OBJS_DIR)/createtobtnforgrid.o $(WIN_OBJS_DIR)/cverbwin.o $(WIN_OBJS_DIR)/createtoverb.o $(WIN_OBJS_DIR)/main.o
 
 
 all : $(TARGET)
