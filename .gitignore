@@ -3,6 +3,7 @@
 /build
 /builddir
 /libs
-/lib
-*.snap
 /flatpak
+/lib
+
+*.snap
