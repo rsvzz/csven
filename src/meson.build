@@ -13,9 +13,13 @@ syslocal = host_machine.system()
 
 # Instala el archivo solo en Linux
 if syslocal == 'linux'
-   install_data('../data/io.github.rsvzz.csven.desktop', install_dir: get_option('prefix') / 'share/applications')
    install_data('../data/io.github.rsvzz.csven.svg', install_dir: get_option('prefix') / 'share/icons/hicolor/scalable/apps')
    install_data('../data/io.github.rsvzz.csven.metainfo.xml', install_dir: get_option('prefix') / 'share/metainfo')
+
+   install_data(
+    '../data/io.github.rsvzz.csven.desktop',
+    install_dir: join_paths(get_option('prefix'), 'share/applications')
+)
 endif
 
 gtk_dep = dependency('gtk4')
