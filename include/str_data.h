@@ -61,3 +61,24 @@ typedef struct{
     GtkLabel *baseing;
     GtkGrid *grid;
 } ItemVerbs;
+
+typedef struct dialog_win
+{
+    /* data */
+    GtkWindow *parent;
+    void (*on_save)();
+    void (*on_close)();
+} DialogWin;
+
+typedef struct
+{
+   /* data */
+   GtkEntry* base;
+   GtkEntry* v2;
+   GtkEntry* v3;
+   GtkEntry *ing;
+   GtkCheckButton *isRegular;
+   GtkWindow *win;
+   /// @brief show data in lbl
+   ItemVerbs *data;
+}ItemVerbWidget;

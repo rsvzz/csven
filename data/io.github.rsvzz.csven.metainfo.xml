@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component type="desktop">
+
+<component type="desktop-application">
   <id>io.github.rsvzz.csven</id>
-  <name>csven</name>
+  <name translate="no">csven</name>
   <summary>Order English words</summary>
-  <project_license>GPL-3.0+</project_license>
   <description>
-    <p>CSVEN allows you to add an English word to mess it up and put it back together to learn how to write it through a game</p>
+    <p>
+        CSVEN allows you to add an English word to mess it up and put it back together to learn how to write it through a game
+    </p>
   </description>
-  <categories>
-    <category>Education</category>
-  </categories>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <launchable type="desktop-id">io.github.rsvzz.csven.desktop</launchable>
+  
+
+  <developer id="io.github.rsvzz">
+      <name>Ronald Sanchez</name>
+  </developer>
+  <provides>
+    <binary>csven</binary>
+  </provides>
+
+  <url type="homepage">https://github.com/rsvzz/csven</url>
+  <url type="bugtracker">https://github.com/rsvzz/csven.git</url>
+
   <releases>
-    <release version="0.0.3" date="2025-02-12"/>
-    <p>This version only allows you to spell one word</p>
+    <release version="0.0.7" date="2025-03-20">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>This version only allows you to spell one word</li>
+        </ul>
+      </description>
+    </release>
   </releases>
-  <developer_name>Ronald Sanchez</developer_namce>
-  <update_contact>ronald_soft88@outlook.com</update_contact>
+ 
    <screenshots>
-    <screenshot type="default">
-      <image>https://raw.githubusercontent.com/rsvzz/c_sven/refs/tags/0.0.3/data/csven_app.png</image>
-    </screenshot>
+      <screenshot type="default">
+        <caption>Main window of csven dark</caption>
+        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/csven/6427752a08e1fcb86f75e202a9ed8aaaf2cee1da/data/screenshot/screenshot-default-dark.png</image>
+        
+      </screenshot>
+      <screenshot>
+        <caption>Main window of csven light</caption>
+        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/csven/6427752a08e1fcb86f75e202a9ed8aaaf2cee1da/data/screenshot/screenshot-default-light.png</image>
+      </screenshot>
   </screenshots>
-   <icon type="cached" width="64" height="64">io.github.rsvzz.csven</icon>
-  <url type="homepage">https://github.com/rsvzz/c_sven</url>
-  <url type="bugtracker">https://github.com/rsvzz/c_sven.git</url>
+
+
+  <content_rating type="oars-1.1" />
+
+
 </component>

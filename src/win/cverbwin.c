@@ -1,15 +1,6 @@
 #include "../../include/create_verb_win.h"
 #include <stdlib.h>
-typedef struct
-{
-   /* data */
-   GtkEntry* base;
-   GtkEntry* v2;
-   GtkEntry* v3;
-   GtkEntry *ing;
-   GtkCheckButton *isRegular;
-   GtkWindow *win;
-}ItemVerbWidget;
+
 
 void on_close_win_verb_clicked(GtkWidget *button, gpointer data){
    gtk_window_close(GTK_WINDOW(data));
@@ -22,7 +13,7 @@ void on_save_win_verb_clicked(GtkWidget *button, gpointer data){
    gtk_window_close(item->win);
 }
 
-void create_verb_window(GtkWindow *paren, const char* title, int is_modal){
+void create_verb_window(GtkWindow *paren, const char* title, int is_modal, DialogWin *dialog, ItemVerbs* items){
    GtkWidget *new_window = gtk_window_new(); 
    GtkWidget *head = gtk_header_bar_new();
    GtkWidget *btn_cancel = gtk_button_new_with_label("Cancel");
@@ -39,7 +30,7 @@ void create_verb_window(GtkWindow *paren, const char* title, int is_modal){
    gtk_entry_set_placeholder_text(GTK_ENTRY(txt_v3), "Participle :");
    gtk_entry_set_placeholder_text(GTK_ENTRY(txt_ing), "Verb ING :");
 
-   g_signal_connect(btn_cancel, "clicked", G_CALLBACK(on_close_win_verb_clicked), (gpointer)new_window);
+   g_signal_connect(btn_cancel, "clicked", G_CALLBACK(dialog->on_close), (gpointer)new_window);
 
    ItemVerbWidget *item = malloc(sizeof(ItemVerbWidget));
    item->base = GTK_ENTRY(txt_base);
@@ -48,7 +39,8 @@ void create_verb_window(GtkWindow *paren, const char* title, int is_modal){
    item->ing = GTK_ENTRY(txt_ing);
    item->isRegular = GTK_CHECK_BUTTON(txt_is_regular);
    item->win = GTK_WINDOW(new_window);
-   g_signal_connect(btn_save, "clicked", G_CALLBACK(on_save_win_verb_clicked), (gpointer)item);
+   item->data = items;
+   g_signal_connect(btn_save, "clicked", G_CALLBACK(dialog->on_save), (gpointer)item);
 
    gtk_button_set_icon_name(GTK_BUTTON(btn_cancel), "edit-delete-symbolic");
    gtk_button_set_icon_name(GTK_BUTTON(btn_save), "document-save-symbolic");
