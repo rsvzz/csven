@@ -81,4 +81,6 @@ typedef struct
    GtkWindow *win;
    /// @brief show data in lbl
    ItemVerbs *data;
+   // para intercambio
+   char *name_v2, *name_v3, *name_ing;
 }ItemVerbWidget;

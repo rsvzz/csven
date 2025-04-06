@@ -62,7 +62,7 @@ gpointer create_to_name_in_grid(gpointer gdata)
   info->name = str;
   gtk_widget_remove_css_class(GTK_WIDGET(info->btn_restore), "button_complete");
   gtk_widget_add_css_class(GTK_WIDGET(info->btn_restore), "button");
-  gtk_widget_set_sensitive(GTK_WIDGET(info->btn_restore), false);
+  gtk_widget_set_sensitive(GTK_WIDGET(info->btn_restore), FALSE);
   // g_print("Asig: %s \n", info->name);
   if (strlen(name) > 0)
   {
