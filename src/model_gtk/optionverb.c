@@ -2,8 +2,6 @@
 #include "../../include/create_verb_win.h"
 #include "string.h"
 #include "stdio.h"
-#include "glib.h"
-
 
 void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
 {
@@ -24,17 +22,19 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
   }
 }
 
-char* convertir_a_utf8(const char* input, const char* encoding_origen) {
+char *convertir_a_utf8(const char *input, const char *encoding_origen)
+{
   gsize bytes_leidos, bytes_escritos;
   GError *error = NULL;
 
   // Realizar conversión desde la codificación de origen a UTF-8
-  char* utf8 = g_convert(input, -1, "UTF-8", encoding_origen, &bytes_leidos, &bytes_escritos, &error);
+  char *utf8 = g_convert(input, -1, "UTF-8", encoding_origen, &bytes_leidos, &bytes_escritos, &error);
 
-  if (!utf8) {
-      fprintf(stderr, "Error al convertir a UTF-8: %s\n", error->message);
-      g_error_free(error);
-      return g_strdup(""); // Devuelve una cadena vacía si la conversión falla
+  if (!utf8)
+  {
+    fprintf(stderr, "Error al convertir a UTF-8: %s\n", error->message);
+    g_error_free(error);
+    return g_strdup(""); // Devuelve una cadena vacía si la conversión falla
   }
   return utf8; // Recuerda liberar la memoria con g_free() después de usarla
 }
@@ -43,9 +43,6 @@ char *get_compare_verb(const char *value, const char *compare, char replace)
 {
   char *str = malloc(sizeof(char) + 1);
   strcpy(str, value);
-  printf("value --> %s \n", value);
-  printf("compere --> %s \n", compare);
-  printf("replace --> %c \n", replace);
   for (size_t i = 0; i < strlen(value); i++)
   {
 
@@ -61,8 +58,7 @@ char *get_compare_verb(const char *value, const char *compare, char replace)
       }
     }
   }
-  printf("new value --> %s \n", str);
-  
+
   return str;
 }
 

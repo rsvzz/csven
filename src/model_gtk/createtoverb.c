@@ -6,6 +6,11 @@ void load_verb(GtkBox* box, ItemVerbs *item){
     item->participle = GTK_LABEL(gtk_label_new("Participle"));
     item->baseing = GTK_LABEL(gtk_label_new("Verb ing"));
 
+    gtk_widget_add_css_class(GTK_WIDGET(item->present), "lbl_compare");
+    gtk_widget_add_css_class(GTK_WIDGET(item->past), "lbl_compare");
+    gtk_widget_add_css_class(GTK_WIDGET(item->participle), "lbl_compare");
+    gtk_widget_add_css_class(GTK_WIDGET(item->baseing), "lbl_compare");
+
     item->grid =GTK_GRID(gtk_grid_new());
     //compare verb
     GtkWidget *op_1 = gtk_label_new("(*) Present");

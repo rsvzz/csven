@@ -42,8 +42,8 @@ void create_verb_window(GtkWindow *paren, const char* title, int is_modal, Dialo
    item->data = items;
    g_signal_connect(btn_save, "clicked", G_CALLBACK(dialog->on_save), (gpointer)item);
 
-   gtk_button_set_icon_name(GTK_BUTTON(btn_cancel), "edit-delete-symbolic");
-   gtk_button_set_icon_name(GTK_BUTTON(btn_save), "document-save-symbolic");
+   gtk_button_set_icon_name(GTK_BUTTON(btn_cancel), "edit-clear-symbolic");
+   gtk_button_set_icon_name(GTK_BUTTON(btn_save), "bookmark-new-symbolic");
    gtk_window_set_titlebar(GTK_WINDOW(new_window), head);
    gtk_header_bar_set_title_widget(GTK_HEADER_BAR(head), gtk_label_new(title));
 

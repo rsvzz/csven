@@ -179,10 +179,7 @@ void activate(GtkApplication *app, gpointer user_data)
 
   css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/io.github.rsvzz.csven.css", NULL);
   g_free(exe_path);
-
-  // gtk_css_provider_load_from_path(css_provider, "/usr/share/csven/style/style.css"); // uso final de compilacion he instalacion
   gtk_css_provider_load_from_path(css_provider, css_path); // para entorno flatpak
-  // gtk_css_provider_load_from_path(css_provider, "style/style.css"); // descomentar para compilar local
   gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                              GTK_STYLE_PROVIDER(css_provider),
                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
