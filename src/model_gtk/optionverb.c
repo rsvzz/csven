@@ -3,6 +3,7 @@
 #include "string.h"
 #include "stdio.h"
 
+char *get_compare_verb(const char *, const char *, char);
 void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
 {
   ItemOptVerb *item = (ItemOptVerb *)user_data;
@@ -10,7 +11,7 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
 
   if (gtk_selection_model_is_selected(pages, 0) == 1)
   {
-    g_message("seleccionado word");
+    // g_message("seleccionado word");
   }
   else
   {
@@ -20,23 +21,6 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
     dialog->on_close = on_close_verb;
     create_verb_window(item->parent, "Add Verb", 1, dialog, item->verb);
   }
-}
-
-char *convertir_a_utf8(const char *input, const char *encoding_origen)
-{
-  gsize bytes_leidos, bytes_escritos;
-  GError *error = NULL;
-
-  // Realizar conversión desde la codificación de origen a UTF-8
-  char *utf8 = g_convert(input, -1, "UTF-8", encoding_origen, &bytes_leidos, &bytes_escritos, &error);
-
-  if (!utf8)
-  {
-    fprintf(stderr, "Error al convertir a UTF-8: %s\n", error->message);
-    g_error_free(error);
-    return g_strdup(""); // Devuelve una cadena vacía si la conversión falla
-  }
-  return utf8; // Recuerda liberar la memoria con g_free() después de usarla
 }
 
 char *get_compare_verb(const char *value, const char *compare, char replace)

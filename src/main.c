@@ -100,7 +100,6 @@ gpointer create_to_name_in_grid(gpointer gdata)
   return NULL;
 }
 
-
 void on_button_restare(GtkWidget *btn, gpointer user_data)
 {
   GThread *r_game = g_thread_new("create_game", restore_game, user_data);
@@ -118,9 +117,23 @@ void on_entry_active(GtkEntry *entry, gpointer user_data)
 static void on_menu_item_activated(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
   // const gchar *action_name = g_action_get_name(G_ACTION(action));
-  //create_verb_window(GTK_WINDOW(user_data), "Create Verbs to List", FALSE);
+  // create_verb_window(GTK_WINDOW(user_data), "Create Verbs to List", FALSE);
 }
 static GtkWidget *window = NULL;
+
+static void on_stack_page_changed(GObject *stack, GParamSpec *param, gpointer user_data)
+{
+  const char *visible_child = gtk_stack_get_visible_child_name(GTK_STACK(stack));
+  if (strcmp(visible_child, "verb") == 0)
+  {
+    gtk_widget_set_visible((GTK_WIDGET(user_data)), TRUE);
+  }
+  else
+  {
+    gtk_widget_set_visible(GTK_WIDGET(user_data), FALSE);
+  }
+}
+
 void activate(GtkApplication *app, gpointer user_data)
 {
   // verificacion de ventana main para que solo una vez este abierta
@@ -134,6 +147,7 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_window_set_default_size(GTK_WINDOW(window), 1280, 400);
   GtkWidget *header = gtk_header_bar_new();
   GtkWidget *btn_add = gtk_button_new();
+  gtk_widget_set_visible(btn_add, FALSE);
   gtk_button_set_icon_name(GTK_BUTTON(btn_add), "document-edit-symbolic");
   gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btn_add);
   gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn Words and Verbs"));
@@ -179,7 +193,9 @@ void activate(GtkApplication *app, gpointer user_data)
 
   css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/io.github.rsvzz.csven.css", NULL);
   g_free(exe_path);
-  gtk_css_provider_load_from_path(css_provider, css_path); // para entorno flatpak
+  gtk_css_provider_load_from_path(css_provider, css_path); // meson install
+  // gtk_css_provider_load_from_path(css_provider, "style/io.github.rsvzz.csven.css"); // make only dev
+
   gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                              GTK_STYLE_PROVIDER(css_provider),
                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -233,6 +249,8 @@ void activate(GtkApplication *app, gpointer user_data)
 
   GtkWidget *box_verbs = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
   GtkWidget *stack = gtk_stack_new();
+  // signal page change
+  g_signal_connect(stack, "notify::visible-child", G_CALLBACK(on_stack_page_changed), (gpointer)btn_add);
 
   gtk_stack_set_transition_type(GTK_STACK(stack), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
   gtk_stack_set_transition_duration(GTK_STACK(stack), 200);
@@ -249,9 +267,10 @@ void activate(GtkApplication *app, gpointer user_data)
   ItemVerbs *item_verbs = malloc(sizeof(ItemVerbs));
 
   load_verb(GTK_BOX(box_verbs), item_verbs);
-  GtkStackPage *p_words = gtk_stack_add_titled(GTK_STACK(stack), boxV, "names", "Words");
-  GtkStackPage *p_verbs = gtk_stack_add_titled(GTK_STACK(stack), box_verbs, "names", "Verbs");
-  // data win stack list widget 
+  GtkStackPage *p_words = gtk_stack_add_titled(GTK_STACK(stack), boxV, "word", "Words");
+  GtkStackPage *p_verbs = gtk_stack_add_titled(GTK_STACK(stack), box_verbs, "verb", "Verbs");
+
+  // data win stack list widget
   ItemOptVerb *opt = malloc(sizeof(ItemOptVerb));
   opt->stack = GTK_STACK(stack);
   opt->parent = GTK_WINDOW(window);

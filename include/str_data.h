@@ -60,6 +60,7 @@ typedef struct{
     GtkLabel *participle;
     GtkLabel *baseing;
     GtkGrid *grid;
+    GtkSeparator *space;
 } ItemVerbs;
 
 typedef struct dialog_win
