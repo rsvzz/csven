@@ -4,7 +4,9 @@ src_files = files([
     'createtobutton.c',
     'gridtobutton.c',
     'createtobtnforgrid.c',
-    'maptogridwithname.c'
+    'createtoverb.c',
+    'maptogridwithname.c',
+    'optionverb.c'
 ])
 
 gtk_dep = dependency('gtk4')

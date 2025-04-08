@@ -4,8 +4,10 @@
 #include "../include/ctogrid.h"
 #include "../include/createtobtnforgrid.h"
 #include "../include/create_verb_win.h"
+#include "../include/createtoverb.h"
+#include "../include/option_verb.h"
 #include <questk/stack.h>
-#include <glib.h>
+#include <glib-2.0/glib.h>
 #include <stdlib.h>
 #include <string.h>
 /// @brief dont use
@@ -60,7 +62,7 @@ gpointer create_to_name_in_grid(gpointer gdata)
   info->name = str;
   gtk_widget_remove_css_class(GTK_WIDGET(info->btn_restore), "button_complete");
   gtk_widget_add_css_class(GTK_WIDGET(info->btn_restore), "button");
-  gtk_widget_set_sensitive(GTK_WIDGET(info->btn_restore), false);
+  gtk_widget_set_sensitive(GTK_WIDGET(info->btn_restore), FALSE);
   // g_print("Asig: %s \n", info->name);
   if (strlen(name) > 0)
   {
@@ -115,22 +117,41 @@ void on_entry_active(GtkEntry *entry, gpointer user_data)
 static void on_menu_item_activated(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
   // const gchar *action_name = g_action_get_name(G_ACTION(action));
-  create_verb_window(GTK_WINDOW(user_data), "Create Verbs to List", FALSE);
+  // create_verb_window(GTK_WINDOW(user_data), "Create Verbs to List", FALSE);
 }
 static GtkWidget *window = NULL;
+
+static void on_stack_page_changed(GObject *stack, GParamSpec *param, gpointer user_data)
+{
+  const char *visible_child = gtk_stack_get_visible_child_name(GTK_STACK(stack));
+  if (strcmp(visible_child, "verb") == 0)
+  {
+    gtk_widget_set_visible((GTK_WIDGET(user_data)), TRUE);
+  }
+  else
+  {
+    gtk_widget_set_visible(GTK_WIDGET(user_data), FALSE);
+  }
+}
+
 void activate(GtkApplication *app, gpointer user_data)
 {
-  //verificacion de ventana main para que solo una vez este abierta
-  if (window != NULL) {
+  // verificacion de ventana main para que solo una vez este abierta
+  if (window != NULL)
+  {
     gtk_window_present(GTK_WINDOW(window));
     return;
   }
 
   window = gtk_application_window_new(app);
-  gtk_window_set_title(GTK_WINDOW(window), "Window");
-  gtk_window_set_default_size(GTK_WINDOW(window), 1280, 720);
+  gtk_window_set_default_size(GTK_WINDOW(window), 1280, 400);
   GtkWidget *header = gtk_header_bar_new();
-  gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn Words"));
+  GtkWidget *btn_add = gtk_button_new();
+  gtk_widget_set_visible(btn_add, FALSE);
+  gtk_button_set_icon_name(GTK_BUTTON(btn_add), "document-edit-symbolic");
+  gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btn_add);
+  gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn Words and Verbs"));
+
   // GtkWidget *mnu = gtk_popover_new();
   GtkWidget *btnMenu = gtk_menu_button_new();
   gtk_menu_button_set_icon_name(GTK_MENU_BUTTON(btnMenu), "open-menu-symbolic");
@@ -145,7 +166,7 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_menu_button_set_popover(GTK_MENU_BUTTON(btnMenu), popover_menu);
   // g_signal_connect_swapped(btnMenu, "clicked", G_CALLBACK(on_clicked_menu), (gpointer)popover);
 
-  //gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btnMenu); //comentar para flatpak stable
+  // gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btnMenu); //comentar para flatpak stable
   gtk_window_set_titlebar(GTK_WINDOW(window), header);
 
   GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
@@ -163,18 +184,18 @@ void activate(GtkApplication *app, gpointer user_data)
   */
   GtkCssProvider *css_provider = gtk_css_provider_new();
   char *exe_path = g_file_read_link("/proc/self/exe", NULL); // Linux
-  if (!exe_path) {
-      g_printerr("No se pudo obtener la ruta del ejecutable.\n");
-      return;
+  if (!exe_path)
+  {
+    g_printerr("No se pudo obtener la ruta del ejecutable.\n");
+    return;
   }
   char *css_path;
 
   css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/io.github.rsvzz.csven.css", NULL);
   g_free(exe_path);
+  gtk_css_provider_load_from_path(css_provider, css_path); // meson install
+  // gtk_css_provider_load_from_path(css_provider, "style/io.github.rsvzz.csven.css"); // make only dev
 
-  //gtk_css_provider_load_from_path(css_provider, "/usr/share/csven/style/style.css"); // uso final de compilacion he instalacion
-  gtk_css_provider_load_from_path(css_provider, css_path); // para entorno flatpak
-  //gtk_css_provider_load_from_path(css_provider, "style/style.css"); // descomentar para compilar local
   gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                              GTK_STYLE_PROVIDER(css_provider),
                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -223,9 +244,43 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_widget_set_margin_top(boxContent, 10);
   gtk_widget_set_margin_top(box, 40);
   gtk_widget_set_margin_top(grid, 50);
+  gtk_widget_set_margin_bottom(grid, 30);
   // asignando boxV el grid
 
-  gtk_window_set_child(GTK_WINDOW(window), boxV);
+  GtkWidget *box_verbs = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+  GtkWidget *stack = gtk_stack_new();
+  // signal page change
+  g_signal_connect(stack, "notify::visible-child", G_CALLBACK(on_stack_page_changed), (gpointer)btn_add);
+
+  gtk_stack_set_transition_type(GTK_STACK(stack), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
+  gtk_stack_set_transition_duration(GTK_STACK(stack), 200);
+
+  GtkWidget *switcher = gtk_stack_switcher_new();
+  gtk_stack_switcher_set_stack(GTK_STACK_SWITCHER(switcher), GTK_STACK(stack));
+
+  GtkWidget *box_page = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+  gtk_box_append(GTK_BOX(box_page), switcher);
+  gtk_box_append(GTK_BOX(box_page), stack);
+
+  // itemverbs
+
+  ItemVerbs *item_verbs = malloc(sizeof(ItemVerbs));
+
+  load_verb(GTK_BOX(box_verbs), item_verbs);
+  GtkStackPage *p_words = gtk_stack_add_titled(GTK_STACK(stack), boxV, "word", "Words");
+  GtkStackPage *p_verbs = gtk_stack_add_titled(GTK_STACK(stack), box_verbs, "verb", "Verbs");
+
+  // data win stack list widget
+  ItemOptVerb *opt = malloc(sizeof(ItemOptVerb));
+  opt->stack = GTK_STACK(stack);
+  opt->parent = GTK_WINDOW(window);
+  opt->verb = item_verbs;
+
+  g_signal_connect(btn_add, "clicked", G_CALLBACK(on_button_add_verb_word), (gpointer)opt);
+
+  gtk_widget_set_size_request(GTK_WIDGET(p_words), 100, 40);
+
+  gtk_window_set_child(GTK_WINDOW(window), box_page);
   gtk_window_present(GTK_WINDOW(window));
 }
 
@@ -236,8 +291,8 @@ int main(int argc, char **argv)
 
   app = gtk_application_new("io.github.rsvzz.csven", G_APPLICATION_DEFAULT_FLAGS);
 
-  //GtkSettings *settings = gtk_settings_get_default();
-  //g_object_set(settings, "gtk-font-name", "Monospace 12", NULL);
+  // GtkSettings *settings = gtk_settings_get_default();
+  // g_object_set(settings, "gtk-font-name", "Monospace 12", NULL);
 
   g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
   status = g_application_run(G_APPLICATION(app), argc, argv);

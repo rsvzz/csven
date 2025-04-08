@@ -1,4 +1,5 @@
 #include <gtk-4.0/gtk/gtk.h>
+#include "str_data.h"
 typedef struct {
     int id;
     const char* base;
@@ -12,4 +13,4 @@ typedef struct {
 /// @param  GtkWindow* window pared
 /// @param  char* title
 /// @param  int 1 true 0 false
-void create_verb_window(GtkWindow*, const char*, int);
+void create_verb_window(GtkWindow*, const char*, int, DialogWin*, ItemVerbs*);

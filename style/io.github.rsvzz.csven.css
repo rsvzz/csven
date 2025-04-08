@@ -49,3 +49,10 @@
     border: 1px solid rgb(6, 44, 1);
     border-radius:15px 15px;
 }
+
+.lbl_compare{
+    font-size: 45px;
+    font-style: normal;
+    font-family: monospace;
+    font-weight: bold;
+}
