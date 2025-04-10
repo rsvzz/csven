@@ -26,6 +26,16 @@
   <url type="bugtracker">https://github.com/rsvzz/csven.git</url>
 
   <releases>
+   <release version="0.1.1" date="2025-04-10">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>In this version, the option to compare verbs in their tenses was added.</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+
     <release version="0.0.7" date="2025-03-20">
       <description translate="no">
         <p>Changed:</p>
