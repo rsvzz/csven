@@ -2,8 +2,9 @@
 #include "../../include/create_verb_win.h"
 #include "string.h"
 #include "stdio.h"
+#include <stdlib.h>
 
-char *get_compare_verb(const char *, const char *, char);
+static char *get_compare_verb(const char *, const char *, char);
 void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
 {
   ItemOptVerb *item = (ItemOptVerb *)user_data;
@@ -12,6 +13,7 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
   if (gtk_selection_model_is_selected(pages, 0) == 1)
   {
     // g_message("seleccionado word");
+    return;
   }
   else
   {
@@ -23,11 +25,12 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
   }
 }
 
-char *get_compare_verb(const char *value, const char *compare, char replace)
+static char *get_compare_verb(const char *value, const char *compare, char replace)
 {
-  char *str = malloc(sizeof(char) + 1);
+  char *str = malloc(strlen(value) +1);
   strcpy(str, value);
-  for (size_t i = 0; i < strlen(value); i++)
+
+  for (int i = 0; i < strlen(value); i++)
   {
 
     if (strlen(value) >= strlen(compare))
@@ -42,7 +45,6 @@ char *get_compare_verb(const char *value, const char *compare, char replace)
       }
     }
   }
-
   return str;
 }
 
@@ -56,9 +58,9 @@ void on_save_verb(GtkWidget *btn, gpointer data)
 
   gtk_label_set_label(item->data->present, gtk_entry_buffer_get_text(bfbase));
 
-  const char *new_v2 = get_compare_verb(gtk_entry_buffer_get_text(bfv2), gtk_entry_buffer_get_text(bfbase), '*');
-  const char *new_v3 = get_compare_verb(gtk_entry_buffer_get_text(bfv3), gtk_entry_buffer_get_text(bfv2), '-');
-  const char *new_ing = get_compare_verb(gtk_entry_buffer_get_text(bfing), gtk_entry_buffer_get_text(bfbase), '*');
+  char *new_v2 = get_compare_verb(gtk_entry_buffer_get_text(bfv2), gtk_entry_buffer_get_text(bfbase), '*');
+  char *new_v3 = get_compare_verb(gtk_entry_buffer_get_text(bfv3), gtk_entry_buffer_get_text(bfv2), '-');
+  char *new_ing = get_compare_verb(gtk_entry_buffer_get_text(bfing), gtk_entry_buffer_get_text(bfbase), '*');
 
   gtk_label_set_label(item->data->past, new_v2);
   gtk_label_set_label(item->data->participle, new_v3);
