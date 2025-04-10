@@ -148,7 +148,7 @@ void activate(GtkApplication *app, gpointer user_data)
   GtkWidget *header = gtk_header_bar_new();
   GtkWidget *btn_add = gtk_button_new();
   gtk_widget_set_visible(btn_add, FALSE);
-  gtk_button_set_icon_name(GTK_BUTTON(btn_add), "document-edit-symbolic");
+  gtk_button_set_icon_name(GTK_BUTTON(btn_add), "list-add-symbolic");
   gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btn_add);
   gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn Words and Verbs"));
 
@@ -194,7 +194,7 @@ void activate(GtkApplication *app, gpointer user_data)
   css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/io.github.rsvzz.csven.css", NULL);
   g_free(exe_path);
   gtk_css_provider_load_from_path(css_provider, css_path); // meson install
-  // gtk_css_provider_load_from_path(css_provider, "style/io.github.rsvzz.csven.css"); // make only dev
+  //gtk_css_provider_load_from_path(css_provider, "style/io.github.rsvzz.csven.css"); // make only dev
 
   gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                              GTK_STYLE_PROVIDER(css_provider),
