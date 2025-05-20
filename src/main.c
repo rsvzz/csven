@@ -8,8 +8,11 @@
 #include "../include/option_verb.h"
 #include <questk/stack.h>
 #include <glib-2.0/glib.h>
+#include <adwaita.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../include/app.h"
+
 /// @brief dont use
 /// @param
 void clear_grid(GtkGrid *);
@@ -136,22 +139,7 @@ static void on_stack_page_changed(GObject *stack, GParamSpec *param, gpointer us
 
 void activate(GtkApplication *app, gpointer user_data)
 {
-  // verificacion de ventana main para que solo una vez este abierta
-  if (window != NULL)
-  {
-    gtk_window_present(GTK_WINDOW(window));
-    return;
-  }
-
-  window = gtk_application_window_new(app);
-  gtk_window_set_default_size(GTK_WINDOW(window), 1280, 400);
-  GtkWidget *header = gtk_header_bar_new();
-  GtkWidget *btn_add = gtk_button_new();
-  gtk_widget_set_visible(btn_add, FALSE);
-  gtk_button_set_icon_name(GTK_BUTTON(btn_add), "list-add-symbolic");
-  gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btn_add);
-  gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn Words and Verbs"));
-
+  create_app_window(window, app);
   // GtkWidget *mnu = gtk_popover_new();
   GtkWidget *btnMenu = gtk_menu_button_new();
   gtk_menu_button_set_icon_name(GTK_MENU_BUTTON(btnMenu), "open-menu-symbolic");
@@ -167,7 +155,7 @@ void activate(GtkApplication *app, gpointer user_data)
   // g_signal_connect_swapped(btnMenu, "clicked", G_CALLBACK(on_clicked_menu), (gpointer)popover);
 
   // gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btnMenu); //comentar para flatpak stable
-  gtk_window_set_titlebar(GTK_WINDOW(window), header);
+  // gtk_window_set_titlebar(GTK_WINDOW(window), header);
 
   GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
   GtkWidget *boxContent = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
@@ -191,10 +179,10 @@ void activate(GtkApplication *app, gpointer user_data)
   }
   char *css_path;
 
-  css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/io.github.rsvzz.csven.css", NULL);
+  css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/io.github.rsvzz.csven.css", NULL); // publish
   g_free(exe_path);
   gtk_css_provider_load_from_path(css_provider, css_path); // meson install
-  //gtk_css_provider_load_from_path(css_provider, "style/io.github.rsvzz.csven.css"); // make only dev
+  // gtk_css_provider_load_from_path(css_provider, "../style/io.github.rsvzz.csven.css"); // make only dev
 
   gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                              GTK_STYLE_PROVIDER(css_provider),
@@ -250,7 +238,7 @@ void activate(GtkApplication *app, gpointer user_data)
   GtkWidget *box_verbs = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
   GtkWidget *stack = gtk_stack_new();
   // signal page change
-  g_signal_connect(stack, "notify::visible-child", G_CALLBACK(on_stack_page_changed), (gpointer)btn_add);
+  g_signal_connect(stack, "notify::visible-child", G_CALLBACK(on_stack_page_changed), (gpointer)get_app_btn_add());
 
   gtk_stack_set_transition_type(GTK_STACK(stack), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
   gtk_stack_set_transition_duration(GTK_STACK(stack), 200);
@@ -276,24 +264,20 @@ void activate(GtkApplication *app, gpointer user_data)
   opt->parent = GTK_WINDOW(window);
   opt->verb = item_verbs;
 
-  g_signal_connect(btn_add, "clicked", G_CALLBACK(on_button_add_verb_word), (gpointer)opt);
+  g_signal_connect(get_app_btn_add(), "clicked", G_CALLBACK(on_button_add_verb_word), (gpointer)opt);
 
   gtk_widget_set_size_request(GTK_WIDGET(p_words), 100, 40);
-
-  gtk_window_set_child(GTK_WINDOW(window), box_page);
-  gtk_window_present(GTK_WINDOW(window));
+  // gtk_box_append(GTK_BOX(box_adw), box_page);
+  add_app_content(box_page);
+  //gtk_window_set_child(GTK_WINDOW(window), box_page);
+  //gtk_window_present(GTK_WINDOW(window));
 }
 
 int main(int argc, char **argv)
 {
   GtkApplication *app;
   int status;
-
   app = gtk_application_new("io.github.rsvzz.csven", G_APPLICATION_DEFAULT_FLAGS);
-
-  // GtkSettings *settings = gtk_settings_get_default();
-  // g_object_set(settings, "gtk-font-name", "Monospace 12", NULL);
-
   g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
   status = g_application_run(G_APPLICATION(app), argc, argv);
   g_object_unref(app);

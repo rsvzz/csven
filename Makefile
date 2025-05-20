@@ -20,9 +20,9 @@ C_SRC_GTK_MODEL_DIR = $(C_SRC_DIR)/model_gtk
 C_SRC_MODEL_DIR = $(C_SRC_DIR)/model
 C_SRC_GTK_WIN_DIR = $(C_SRC_DIR)/win
 
-LIBS_GTK =  `pkg-config --cflags --libs gtk4`#-Llibs -lgtk-4 -lgio-2.0 -lglib-2.0 -lgobject-2.0
+LIBS_GTK =  `pkg-config --cflags --libs gtk4 libadwaita-1`#-Llibs -lgtk-4 -lgio-2.0 -lglib-2.0 -lgobject-2.0
 
-OBJ_SRC_FILES = $(WIN_OBJS_DIR)/createtobutton.o \
+OBJ_SRC_FILES = $(WIN_OBJS_DIR)/createtobutton.o  $(WIN_OBJS_DIR)/app.o \
 $(WIN_OBJS_DIR)/gridtobutton.o $(WIN_OBJS_DIR)/comperetoindex.o  $(WIN_OBJS_DIR)/maptogridwithname.o \
 $(WIN_OBJS_DIR)/createtobtnforgrid.o $(WIN_OBJS_DIR)/cverbwin.o $(WIN_OBJS_DIR)/createtoverb.o \
 $(WIN_OBJS_DIR)/optionverb.o  $(WIN_OBJS_DIR)/main.o

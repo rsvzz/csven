@@ -22,13 +22,12 @@ if syslocal == 'linux'
 )
 endif
 
-gtk_dep = dependency('gtk4')
-glib_dep = dependency('glib-2.0')
+adw_dep = dependency('libadwaita-1')
 
 executable('csven',
   sources: 'main.c',
   include_directories: [inc_src],
-  dependencies: [gtk_dep, questk_dep, glib_dep],
+  dependencies: [questk_dep, adw_dep],
    link_with: [
       mgtk_dep, wingtk_dep
    ],
