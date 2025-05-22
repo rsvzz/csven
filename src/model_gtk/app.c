@@ -8,8 +8,8 @@ void create_app_window(GtkWidget *window, GtkApplication *app)
     gtk_widget_set_hexpand(box_content, TRUE);
     gtk_widget_set_vexpand(box_content, TRUE);
     gtk_window_set_titlebar(GTK_WINDOW(window), header);
-    gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn Words and Verbs"));
-    gtk_window_set_default_size(GTK_WINDOW(window), 1280, 720);
+    gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn English"));
+    gtk_window_set_default_size(GTK_WINDOW(window), 720, 720);
     btn_add = gtk_button_new();
     gtk_widget_set_visible(btn_add, FALSE);
     gtk_button_set_icon_name(GTK_BUTTON(btn_add), "list-add-symbolic");
