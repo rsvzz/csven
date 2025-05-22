@@ -3,7 +3,7 @@ GtkWidget *box_verbs;
 ItemVerbs *item_verbs;
 void create_page_verb()
 {
-    box_verbs = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    box_verbs = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
     item_verbs = malloc(sizeof(ItemVerbs));
     load_verb(GTK_BOX(box_verbs), item_verbs);
 }

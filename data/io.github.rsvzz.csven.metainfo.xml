@@ -34,6 +34,15 @@
         </ul>
       </description>
     </release>
+
+    <release version="0.1.5" date="2025-05-22">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>Changed the interface.</li>
+        </ul>
+      </description>
+    </release>
     
     <release version="0.0.7" date="2025-03-20">
       <description translate="no">

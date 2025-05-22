@@ -1,7 +1,7 @@
 project('csven', 
 'c',
- version: '0.1.1', 
- default_options : ['c_std=c11', 'default_library=static']
+ version: '0.1.5', 
+ default_options : ['c_std=c17', 'default_library=static']
  )
  
  subdir('src')

@@ -19,6 +19,7 @@ void activate(GtkApplication *app, gpointer user_data)
     return;
   }
   window = gtk_application_window_new(app);
+  //gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
   create_app_window(window, app);
   load_path_css();
   create_nav(get_app_btn_add());

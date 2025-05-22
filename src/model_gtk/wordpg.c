@@ -4,11 +4,18 @@
 GtkWidget *box, *boxContent, *boxV, *grid, *txt_name, *btn_restare;
 void create_page_word()
 {
-  box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);        // Word load read
-  boxContent = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10); // entry  word
-  boxV = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+  boxV = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5); // box main in page word
+  gtk_widget_set_hexpand(boxV, TRUE);
   gtk_widget_set_halign(boxV, GTK_ALIGN_CENTER);
+  gtk_widget_set_valign(boxV, GTK_ALIGN_CENTER);
+  box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5); // Word load read
+  gtk_widget_set_margin_top(box, 10);
+  gtk_widget_set_margin_bottom(box, 10);
+  gtk_widget_set_halign(box, GTK_ALIGN_CENTER);
+  boxContent = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5); // entry  word
+  gtk_widget_set_halign(boxContent, GTK_ALIGN_CENTER);
   grid = gtk_grid_new();
+  gtk_widget_set_halign(grid, GTK_ALIGN_CENTER);
   // load content boxV main
   gtk_box_append(GTK_BOX(boxV), boxContent);
   gtk_box_append(GTK_BOX(boxV), box);

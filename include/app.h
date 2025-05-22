@@ -1,6 +1,9 @@
 #pragma once
 #include <gtk-4.0/gtk/gtk.h>
 #include "create_verb_win.h"
+/// @brief create inteface main
+/// @param  
+/// @param  
 void create_app_window(GtkWidget*, GtkApplication*);
 /// @brief Content box
 /// @param  GtkWidget add box

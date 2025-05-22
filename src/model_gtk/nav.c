@@ -10,12 +10,6 @@ void create_nav(GtkWidget *btn_add)
     box_page = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
     gtk_box_append(GTK_BOX(box_page), siderbar);
     gtk_box_append(GTK_BOX(box_page), stack);
-    /*
-    GtkStackPage *page_w = gtk_stack_add_titled(GTK_STACK(stack), boxV, "word", "Learn Words");
-    GtkStackPage *page_v = gtk_stack_add_titled(GTK_STACK(stack), box_verbs, "verb", "Learn Verbs");
-    gtk_stack_page_set_icon_name(page_w, "input-dialpad-symbolic");
-    gtk_stack_page_set_icon_name(page_v, "preferences-desktop-keyboard-symbolic");
-    */
 }
 
 GtkWidget* get_box_page(){
