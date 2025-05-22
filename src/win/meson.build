@@ -1,5 +1,5 @@
 inc_src = include_directories('../../src', '../../include')
-src_files = files('cverbwin.c', 'app.c')
+src_files = files('cverbwin.c')
 
 adw_dep = dependency('libadwaita-1')
 questk_dep = declare_dependency(

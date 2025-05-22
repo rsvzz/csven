@@ -1,276 +1,34 @@
 #include <gtk-4.0/gtk/gtk.h>
 #include <gtk-4.0/gdk/gdk.h>
-#include "../include/ctobutton.h"
-#include "../include/ctogrid.h"
-#include "../include/createtobtnforgrid.h"
-#include "../include/create_verb_win.h"
-#include "../include/createtoverb.h"
-#include "../include/option_verb.h"
 #include <questk/stack.h>
 #include <glib-2.0/glib.h>
-#include <adwaita.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../include/app.h"
+#include "../include/mapcss.h"
+#include "../include/nav.h"
+#include "../include/wordpg.h"
+#include "../include/verbpg.h"
 
-/// @brief dont use
-/// @param
-void clear_grid(GtkGrid *);
-gpointer restore_game(gpointer gdata);
-gpointer create_to_name_in_grid(gpointer gdata);
-
-void clear_grid(GtkGrid *grid)
-{
-
-  for (int i = 0; i < 5; i++)
-  {
-
-    for (int j = 0; j < 5; j++)
-    {
-      gtk_grid_remove_column(grid, j);
-    }
-    gtk_grid_remove_row(grid, i);
-  }
-}
-
-gpointer restore_game(gpointer gdata)
-{
-  ItemListRestore *info = (ItemListRestore *)gdata;
-  GtkWidget *child = gtk_widget_get_first_child(GTK_WIDGET(info->box_name));
-  while (child != NULL)
-  {
-    /* code */
-    GtkWidget *aux = gtk_widget_get_next_sibling(child);
-    gtk_widget_unparent(child);
-    child = aux;
-  }
-
-  create_button_size_char(info->name, info->box_name, info->tlist);
-  set_grid_for_name_game(info);
-  gtk_widget_remove_css_class(GTK_WIDGET(info->btn_restore), "button_complete");
-  gtk_widget_add_css_class(GTK_WIDGET(info->btn_restore), "button");
-  gtk_widget_set_sensitive(GTK_WIDGET(info->btn_restore), FALSE);
-
-  return NULL;
-}
-
-gpointer create_to_name_in_grid(gpointer gdata)
-{
-  ItemListRestore *info = (ItemListRestore *)gdata;
-  GtkEntryBuffer *buffer = gtk_entry_get_buffer(info->txt_name);
-  const char *name = gtk_entry_buffer_get_text(buffer);
-  char *str = (char *)malloc(strlen(name) + 1);
-  // info->name = NULL;
-  strcpy(str, name);
-  info->name = str;
-  gtk_widget_remove_css_class(GTK_WIDGET(info->btn_restore), "button_complete");
-  gtk_widget_add_css_class(GTK_WIDGET(info->btn_restore), "button");
-  gtk_widget_set_sensitive(GTK_WIDGET(info->btn_restore), FALSE);
-  // g_print("Asig: %s \n", info->name);
-  if (strlen(name) > 0)
-  {
-    // g_print("%s \n",name);
-
-    gtk_widget_add_css_class(GTK_WIDGET(info->btn_restore), "button");
-
-    // set_grid_for_name_game(info->list, info->name, (info->x * info->y));
-
-    GtkWidget *child = gtk_widget_get_first_child(GTK_WIDGET(info->box_name));
-
-    while (child != NULL)
-    {
-      GtkWidget *aux = gtk_widget_get_next_sibling(child);
-      gtk_widget_unparent(child);
-      child = aux;
-    }
-    // limpiando palabra titulo del juego
-    if (info->auxt != NULL)
-    {
-      Queue *aux = info->auxt;
-      while (aux != NULL)
-      {
-        queue_remove(&aux);
-      }
-      info->auxt = NULL;
-    }
-
-    create_button_size_char(name, info->box_name, info->tlist);
-    set_grid_for_name_game(info);
-    gtk_entry_buffer_set_text(buffer, "", 0);
-    gtk_entry_set_buffer(info->txt_name, buffer);
-  }
-
-  return NULL;
-}
-
-void on_button_restare(GtkWidget *btn, gpointer user_data)
-{
-  GThread *r_game = g_thread_new("create_game", restore_game, user_data);
-  g_thread_join(r_game);
-  g_thread_unref(r_game);
-}
-
-void on_entry_active(GtkEntry *entry, gpointer user_data)
-{
-  GThread *create_game = g_thread_new("create_game", create_to_name_in_grid, user_data);
-  g_thread_join(create_game);
-  g_thread_unref(create_game);
-}
-
-static void on_menu_item_activated(GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-  // const gchar *action_name = g_action_get_name(G_ACTION(action));
-  // create_verb_window(GTK_WINDOW(user_data), "Create Verbs to List", FALSE);
-}
 static GtkWidget *window = NULL;
-
-static void on_stack_page_changed(GObject *stack, GParamSpec *param, gpointer user_data)
-{
-  const char *visible_child = gtk_stack_get_visible_child_name(GTK_STACK(stack));
-  if (strcmp(visible_child, "verb") == 0)
-  {
-    gtk_widget_set_visible((GTK_WIDGET(user_data)), TRUE);
-  }
-  else
-  {
-    gtk_widget_set_visible(GTK_WIDGET(user_data), FALSE);
-  }
-}
-
 void activate(GtkApplication *app, gpointer user_data)
 {
-  create_app_window(window, app);
-  // GtkWidget *mnu = gtk_popover_new();
-  GtkWidget *btnMenu = gtk_menu_button_new();
-  gtk_menu_button_set_icon_name(GTK_MENU_BUTTON(btnMenu), "open-menu-symbolic");
-
-  GMenu *menu = g_menu_new();
-  g_menu_append(menu, "Dev Verb", "app.new");
-  GSimpleAction *option1_action = g_simple_action_new("new", NULL);
-  g_signal_connect(option1_action, "activate", G_CALLBACK(on_menu_item_activated), (gpointer)window);
-  g_action_map_add_action(G_ACTION_MAP(g_application_get_default()), G_ACTION(option1_action));
-  GMenuModel *menu_model = G_MENU_MODEL(menu);
-  GtkWidget *popover_menu = gtk_popover_menu_new_from_model(menu_model);
-  gtk_menu_button_set_popover(GTK_MENU_BUTTON(btnMenu), popover_menu);
-  // g_signal_connect_swapped(btnMenu, "clicked", G_CALLBACK(on_clicked_menu), (gpointer)popover);
-
-  // gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btnMenu); //comentar para flatpak stable
-  // gtk_window_set_titlebar(GTK_WINDOW(window), header);
-
-  GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-  GtkWidget *boxContent = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-  GtkWidget *txt_name = gtk_entry_new();
-  gtk_entry_set_max_length(GTK_ENTRY(txt_name), 30);
-  // GtkWidget *btnStart = gtk_button_new_with_label("Start");
-  GtkWidget *btn_restare = gtk_button_new_with_label("Restore");
-  gtk_button_set_icon_name(GTK_BUTTON(btn_restare), "view-refresh-symbolic");
-  gtk_widget_set_sensitive(btn_restare, FALSE);
-  GtkWidget *boxV = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-  GtkWidget *grid = gtk_grid_new();
-  /*
-    add style css application
-  */
-  GtkCssProvider *css_provider = gtk_css_provider_new();
-  char *exe_path = g_file_read_link("/proc/self/exe", NULL); // Linux
-  if (!exe_path)
+  if (window != NULL)
   {
-    g_printerr("No se pudo obtener la ruta del ejecutable.\n");
+    gtk_window_present(GTK_WINDOW(window));
     return;
   }
-  char *css_path;
-
-  css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/io.github.rsvzz.csven.css", NULL); // publish
-  g_free(exe_path);
-  gtk_css_provider_load_from_path(css_provider, css_path); // meson install
-  // gtk_css_provider_load_from_path(css_provider, "../style/io.github.rsvzz.csven.css"); // make only dev
-
-  gtk_style_context_add_provider_for_display(gdk_display_get_default(),
-                                             GTK_STYLE_PROVIDER(css_provider),
-                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-  gtk_widget_add_css_class(btn_restare, "button");
-  gtk_widget_add_css_class(txt_name, "txtEntry");
-
-  ItemListRestore *glist = malloc(sizeof(ItemListRestore));
-  glist->btn_restore = GTK_BUTTON(btn_restare);
-  glist->grid = GTK_GRID(grid);
-  glist->x = 7;
-  glist->y = 7;
-  glist->box_name = GTK_BOX(box);
-  glist->txt_name = GTK_ENTRY(txt_name);
-  // porque queue requiere al principio null en el puntero doble
-  glist->auxList = NULL;
-  glist->auxt = NULL;
-  glist->list = &glist->auxList;
-  glist->tlist = &glist->auxt;
-
-  // creando los bottones en el gridor default
-  GThread *th_game = g_thread_new("th_game", createtobutonforgrid, (gpointer)glist);
-  g_thread_join(th_game);
-  // clear GThread
-  g_thread_unref(th_game);
-  // createtobutonforgrid(glist);
-  //  crear nuevo struct que manipule los parametros del clicked
-  //   g_signal_connect(btnStart, "clicked", G_CALLBACK(on_button_start), (gpointer)dgame);
-  g_signal_connect(btn_restare, "clicked", G_CALLBACK(on_button_restare), (gpointer)glist);
-  g_signal_connect(txt_name, "activate", G_CALLBACK(on_entry_active), (gpointer)glist);
-  gtk_box_append(GTK_BOX(boxContent), txt_name);
-  // gtk_box_append(GTK_BOX(boxContent), btnStart);
-  gtk_box_append(GTK_BOX(boxContent), btn_restare);
-
-  gtk_box_append(GTK_BOX(boxV), boxContent);
-  gtk_box_append(GTK_BOX(boxV), box);
-  gtk_box_append(GTK_BOX(boxV), grid);
-
-  // center
-  gtk_widget_set_halign(boxContent, GTK_ALIGN_CENTER);
-
-  gtk_widget_set_halign(box, GTK_ALIGN_CENTER);
-  gtk_widget_set_halign(grid, GTK_ALIGN_CENTER);
-
-  // gtk_box_set_homogeneous(GTK_BOX(box), true);
-  gtk_widget_set_margin_top(boxContent, 10);
-  gtk_widget_set_margin_top(box, 40);
-  gtk_widget_set_margin_top(grid, 50);
-  gtk_widget_set_margin_bottom(grid, 30);
-  // asignando boxV el grid
-
-  GtkWidget *box_verbs = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-  GtkWidget *stack = gtk_stack_new();
-  // signal page change
-  g_signal_connect(stack, "notify::visible-child", G_CALLBACK(on_stack_page_changed), (gpointer)get_app_btn_add());
-
-  gtk_stack_set_transition_type(GTK_STACK(stack), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
-  gtk_stack_set_transition_duration(GTK_STACK(stack), 200);
-
-  GtkWidget *switcher = gtk_stack_switcher_new();
-  gtk_stack_switcher_set_stack(GTK_STACK_SWITCHER(switcher), GTK_STACK(stack));
-
-  GtkWidget *box_page = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-  gtk_box_append(GTK_BOX(box_page), switcher);
-  gtk_box_append(GTK_BOX(box_page), stack);
-
-  // itemverbs
-
-  ItemVerbs *item_verbs = malloc(sizeof(ItemVerbs));
-
-  load_verb(GTK_BOX(box_verbs), item_verbs);
-  GtkStackPage *p_words = gtk_stack_add_titled(GTK_STACK(stack), boxV, "word", "Words");
-  GtkStackPage *p_verbs = gtk_stack_add_titled(GTK_STACK(stack), box_verbs, "verb", "Verbs");
-
-  // data win stack list widget
-  ItemOptVerb *opt = malloc(sizeof(ItemOptVerb));
-  opt->stack = GTK_STACK(stack);
-  opt->parent = GTK_WINDOW(window);
-  opt->verb = item_verbs;
-
-  g_signal_connect(get_app_btn_add(), "clicked", G_CALLBACK(on_button_add_verb_word), (gpointer)opt);
-
-  gtk_widget_set_size_request(GTK_WIDGET(p_words), 100, 40);
-  // gtk_box_append(GTK_BOX(box_adw), box_page);
-  add_app_content(box_page);
-  //gtk_window_set_child(GTK_WINDOW(window), box_page);
-  //gtk_window_present(GTK_WINDOW(window));
+  window = gtk_application_window_new(app);
+  create_app_window(window, app);
+  load_path_css();
+  create_nav(get_app_btn_add());
+  create_page_word();
+  load_game_for_grid();
+  add_page_set_stack(get_box_word(), "word", "Word");
+  create_page_verb();
+  load_btn_add_header(get_item_verb(), get_nav_stack_pages(), window);
+  add_page_set_stack(get_box_verb(), "verb", "Verb");
+  add_app_content(get_box_page());
 }
 
 int main(int argc, char **argv)
