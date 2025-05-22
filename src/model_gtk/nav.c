@@ -8,6 +8,8 @@ void create_nav(GtkWidget *btn_add)
     g_signal_connect(stack, "notify::visible-child", G_CALLBACK(on_stack_page_changed), (gpointer)btn_add);
     gtk_stack_sidebar_set_stack(GTK_STACK_SIDEBAR(siderbar), GTK_STACK(stack));
     box_page = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+    gtk_widget_set_hexpand(box_page, TRUE);
+    gtk_widget_set_vexpand(box_page, TRUE);
     gtk_box_append(GTK_BOX(box_page), siderbar);
     gtk_box_append(GTK_BOX(box_page), stack);
 }
