@@ -26,6 +26,16 @@
   <url type="bugtracker">https://github.com/rsvzz/csven.git</url>
 
   <releases>
+  
+  <release version="0.1.5" date="2025-05-22">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>Changed the interface.</li>
+        </ul>
+      </description>
+    </release>
+
    <release version="0.1.1" date="2025-04-10">
       <description translate="no">
         <p>Changed:</p>
@@ -35,15 +45,6 @@
       </description>
     </release>
 
-    <release version="0.1.5" date="2025-05-22">
-      <description translate="no">
-        <p>Changed:</p>
-        <ul>
-          <li>Changed the interface.</li>
-        </ul>
-      </description>
-    </release>
-    
     <release version="0.0.7" date="2025-03-20">
       <description translate="no">
         <p>Changed:</p>
@@ -56,7 +57,7 @@
  
    <screenshots>
       <screenshot type="default">
-        <caption>Main window of csven dark</caption>
+        <caption>Main window of csven</caption>
         <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/csven/2e38e7021846857a80c2730084925b691b756f30/data/screenshot/screenshot_mainv2.png</image>
       </screenshot>
 
