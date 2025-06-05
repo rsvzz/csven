@@ -8,7 +8,7 @@ USR_SHARE = $(USR_DIR)/share
 USR_SHARE_APPGAME = $(USR_SHARE)/csven
 
 #uso de c11 para compatibilidad
-CC = gcc -std=c17
+CC = clang -std=c17
 #ruta exe
 TARGET = $(USR_DIR)/csven
 #uso de libreria dinamica libquestk.so solo es para manejar stack y queue  agregare el reposutorio mas tarde y agregare el link

@@ -1,6 +1,23 @@
 #pragma once
 #include "createtoverb.h"
 #include <gtk-4.0/gtk/gtk.h>
+#include <glib-2.0/glib-object.h>
+
+
+#define PAGE_VERB_TYPE page_verb_get_type()
+
+G_DECLARE_FINAL_TYPE(PageVerb, page_verb, PAGE, VERB, GObject);
+
+PageVerb *page_verb_new(void);
+/// @brief load widget first
+/// @param self 
+void page_verb_load_widget(PageVerb * self);
+GtkWidget *page_verb_get_box(PageVerb* self);
+/// @brief items verb for add header needed
+/// @param selft 
+/// @return 
+ItemVerbs* page_verb_get_items_verb(PageVerb *selft);
+
 /// @brief create box verb for show page
 void create_page_verb();
 /// @brief get box
