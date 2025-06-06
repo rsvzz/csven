@@ -35,6 +35,7 @@ void activate(GtkApplication *app, gpointer user_data)
   stack_option_set_button_option_add(stack_opt, app_main_get_option_header_add(w_app));
 
   PageWord *p_word = page_word_new();
+  page_word_load_widget(p_word);
   //page_word_load_all_widget(p_word);
   page_word_load_create_grid_for_game(p_word);
   // create_nav(app_main_get_option_header_add(win));

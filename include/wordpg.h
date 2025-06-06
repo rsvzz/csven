@@ -12,6 +12,9 @@ PageWord *page_word_new(void);
 /// @return GtkWidget box
 GtkWidget * page_word_get_box_content(PageWord *self);
 
+/// @brief load gtk control
+/// @param self 
+void page_word_load_widget(PageWord *self);
 /// @brief load game for grid
 /// @param self 
 void page_word_load_create_grid_for_game(PageWord *self);

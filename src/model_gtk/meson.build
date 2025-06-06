@@ -1,17 +1,13 @@
 inc_src = include_directories('../../src', '../../include')
 src_files = files([
-    'comperetoindex.c',
-    'createtobutton.c',
-    'gridtobutton.c',
-    'createtobtnforgrid.c',
     'createtoverb.c',
-    'maptogridwithname.c',
     'optionverb.c',
     'appmain.c',
     'mapcss.c',
     'nav.c',
     'wordpg.c',
-    'verbpg.c'
+    'verbpg.c',
+    'wordgame.c'
 ])
 
 gtk_dep = dependency('gtk4')

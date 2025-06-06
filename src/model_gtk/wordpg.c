@@ -1,10 +1,9 @@
 #include "../../include/wordpg.h"
-#include "../../include/createtobtnforgrid.h"
-#include "../../include/ctobutton.h"
-
+#include "../../include/word_game.h"
 struct _PageWord
 {
   GObject parent_instance;
+  WordGame *game;
   GtkWidget *box, *boxContent, *boxV, *grid, *txt_name, *btn_restare;
 };
 
@@ -33,6 +32,11 @@ gpointer restore_game(gpointer gdata);
 /// @param gdata
 /// @return
 gpointer create_to_name_in_grid(gpointer gdata);
+
+/// @brief to create grid for game
+/// @param gdata WordGame
+/// @return 
+gpointer thread_create_grid_for_game(gpointer gdata);
 
 static void page_word_dispose(GObject *object)
 {
@@ -79,12 +83,20 @@ static void page_word_class_init(PageWordClass *Klass)
 
 /// @brief init all data.
 /// @param self
-static void page_word_init(PageWord *self)
+static void page_word_init(PageWord *self) {
+
+};
+
+void page_word_load_widget(PageWord *self)
 {
   self->boxV = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);         // box main in page word
   self->box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);        // Word load read
   self->boxContent = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5); // entry  word
   self->grid = gtk_grid_new();
+  self->game = word_game_new();
+
+  //title button add box content
+  word_game_set_box_title(self->game, GTK_BOX(self->box));
 
   gtk_widget_set_hexpand(self->boxV, TRUE);
   gtk_widget_set_halign(self->boxV, GTK_ALIGN_CENTER);
@@ -107,8 +119,7 @@ static void page_word_init(PageWord *self)
   gtk_box_append(GTK_BOX(self->boxV), self->grid);
 
   load_box_content_for_edit(self);
-
-};
+}
 
 PageWord *page_word_new(void)
 {
@@ -121,6 +132,9 @@ void load_box_content_for_edit(PageWord *self)
   gtk_entry_set_placeholder_text(GTK_ENTRY(self->txt_name), "type ..");
   self->btn_restare = gtk_button_new_with_label("Restore");
 
+  //add button WordGame
+  word_game_set_btn_restore(self->game, GTK_BUTTON(self->btn_restare));
+
   gtk_entry_set_max_length(GTK_ENTRY(self->txt_name), 30);
 
   gtk_button_set_icon_name(GTK_BUTTON(self->btn_restare), "view-refresh-symbolic");
@@ -129,14 +143,16 @@ void load_box_content_for_edit(PageWord *self)
   gtk_widget_add_css_class(self->btn_restare, "button");
   gtk_widget_add_css_class(self->txt_name, "txtEntry");
 
-  
   gtk_box_append(GTK_BOX(self->boxContent), self->txt_name);
   gtk_box_append(GTK_BOX(self->boxContent), self->btn_restare);
-  
+
+  g_signal_connect(self->txt_name, "activate", G_CALLBACK(on_entry_active), (gpointer)self->game);
+  g_signal_connect(self->btn_restare, "clicked", G_CALLBACK(on_button_restare), (gpointer)self->game);
 }
 
 void page_word_load_create_grid_for_game(PageWord *self)
 {
+  /*
   ItemListRestore *glist = malloc(sizeof(ItemListRestore));
   glist->btn_restore = GTK_BUTTON(self->btn_restare);
   glist->grid = GTK_GRID(self->grid);
@@ -152,12 +168,16 @@ void page_word_load_create_grid_for_game(PageWord *self)
   // event need info for create buttons;
   g_signal_connect(self->btn_restare, "clicked", G_CALLBACK(on_button_restare), (gpointer)glist);
   g_signal_connect(self->txt_name, "activate", G_CALLBACK(on_entry_active), (gpointer)glist);
-
+*/
   // creando los bottones en el gridor default
-  GThread *th_game = g_thread_new("th_game", createtobutonforgrid, (gpointer)glist);
-  g_thread_join(th_game);
-  // clear GThread
-  g_thread_unref(th_game);
+  // GThread *th_game = g_thread_new("th_game", createtobutonforgrid, (gpointer)glist);
+  // GtkWidget* grid = gtk_grid_new();
+  word_game_load_button(self->game, GTK_GRID(self->grid), 7, 7);
+  // self->grid = grid;
+  // GThread *th_game = g_thread_new("th_game", createtobutonforgrid, (gpointer)glist);
+  // g_thread_join(th_game);
+  //  clear GThread
+  // g_thread_unref(th_game);
 }
 
 GtkWidget *page_word_get_box_content(PageWord *self)
@@ -239,27 +259,54 @@ void load_game_for_grid()
 }
 */
 
+
 void on_button_restare(GtkWidget *btn, gpointer user_data)
 {
-  GThread *r_game = g_thread_new("create_game", restore_game, user_data);
+  gtk_widget_remove_css_class(btn, "button_complete");
+  gtk_widget_add_css_class(btn, "button");
+  gtk_widget_set_sensitive(btn, FALSE);
+
+  WordGame *game = (WordGame*) user_data;
+  GThread *r_game = g_thread_new("create_game", thread_create_grid_for_game, game);
   g_thread_join(r_game);
   g_thread_unref(r_game);
+  
 }
+
 
 void on_entry_active(GtkEntry *entry, gpointer user_data)
 {
-  GThread *create_game = g_thread_new("create_game", create_to_name_in_grid, user_data);
+  GtkEntryBuffer *buffer = gtk_entry_get_buffer(entry);
+  const char *name = gtk_entry_buffer_get_text(buffer);
+  char *str = (char *)malloc(strlen(name) + 1);
+  // info->name = NULL;
+  strcpy(str, name);
+
+  WordGame *game = (WordGame *)user_data;
+  word_game_set_name_word(game, name);
+  GThread *create_game = g_thread_new("create_game", thread_create_grid_for_game, user_data);
   g_thread_join(create_game);
   g_thread_unref(create_game);
+  //clear entry
+  gtk_entry_buffer_set_text(buffer, "", 0);
+  gtk_entry_set_buffer(entry, buffer);
+
+
 }
 
+gpointer thread_create_grid_for_game(gpointer gdata){
+  WordGame *game = (WordGame *)gdata;
+  word_game_set_name_to_button(game);
+  return NULL;
+}
+
+/*
 gpointer restore_game(gpointer gdata)
 {
   ItemListRestore *info = (ItemListRestore *)gdata;
   GtkWidget *child = gtk_widget_get_first_child(GTK_WIDGET(info->box_name));
   while (child != NULL)
   {
-    /* code */
     GtkWidget *aux = gtk_widget_get_next_sibling(child);
     gtk_widget_unparent(child);
     child = aux;
@@ -272,7 +319,9 @@ gpointer restore_game(gpointer gdata)
   gtk_widget_set_sensitive(GTK_WIDGET(info->btn_restore), FALSE);
   return NULL;
 }
+*/
 
+/*
 gpointer create_to_name_in_grid(gpointer gdata)
 {
   ItemListRestore *info = (ItemListRestore *)gdata;
@@ -321,3 +370,4 @@ gpointer create_to_name_in_grid(gpointer gdata)
 
   return NULL;
 }
+  */
