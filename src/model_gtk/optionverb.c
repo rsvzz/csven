@@ -4,7 +4,12 @@
 #include "stdio.h"
 #include <stdlib.h>
 
+/*
+ * present window dialog
+ */
+
 static char *get_compare_verb(const char *, const char *, char);
+
 void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
 {
   ItemOptVerb *item = (ItemOptVerb *)user_data;
@@ -21,7 +26,8 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
     dialog->parent = item->parent;
     dialog->on_save = on_save_verb;
     dialog->on_close = on_close_verb;
-    create_verb_window(item->parent, "Add Verb", 1, dialog, item->verb);
+    WinVerb *win = win_verb_new();
+    win_verb_load_widget(win,item->parent, "Add Verb", 1, dialog, item->verb);
   }
 }
 

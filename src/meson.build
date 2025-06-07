@@ -3,10 +3,12 @@ inc_src = include_directories('../src', '../include')
 subdir('model_gtk')
 subdir('win')
 
+#dont use more
 #questk_dep = dependency('questk', required: true)
-questk_dep = declare_dependency(
-  link_args: ['-L/usr/local/lib', '-lquestk']
-)
+#questk_dep = declare_dependency(
+#  link_args: ['-L/usr/local/lib', '-lquestk']
+#)
+
 #install style prefix
 install_data('../style/io.github.rsvzz.csven.css', install_dir: get_option('prefix') / 'share/csven/style')
 syslocal = host_machine.system()
@@ -22,12 +24,12 @@ if syslocal == 'linux'
 )
 endif
 
-adw_dep = dependency('libadwaita-1')
+gtk_dep = dependency('gtk4')
 
 executable('csven',
   sources: 'main.c',
   include_directories: [inc_src],
-  dependencies: [questk_dep, adw_dep],
+  dependencies: [gtk_dep],
    link_with: [
       mgtk_dep, wingtk_dep
    ],

@@ -1,14 +1,5 @@
 #pragma once
 #include <gtk-4.0/gtk/gtk.h>
-#include "str_data.h"
-
-typedef struct
-{
-    /* data */
-    GtkStack *stack;
-    GtkWindow *parent;
-    ItemVerbs *verb;
-} ItemOptVerb;
 
 /// @brief clicked add verbs or word
 /// @param  GtkWidget
