@@ -1,9 +1,6 @@
 #include <gtk-4.0/gtk/gtk.h>
 #include <gtk-4.0/gdk/gdk.h>
-#include <questk/stack.h>
-#include <glib-2.0/glib.h>
 #include <stdlib.h>
-#include <string.h>
 #include "../include/app_main.h"
 #include "../include/mapcss.h"
 #include "../include/nav.h"

@@ -1,5 +1,4 @@
 #include "../../include/app_main.h"
-#include "../../include/option_verb.h"
 
 struct _AppMain
 {
@@ -9,10 +8,31 @@ struct _AppMain
 
 G_DEFINE_TYPE(AppMain, app_main, G_TYPE_OBJECT);
 
+/// @brief Event save dialog window
+/// @param
+/// @param
+void on_save_verb(GtkWidget *, gpointer);
+/// @brief event close dialog window
+/// @param
+/// @param
+void on_close_verb(GtkWidget *, gpointer);
+
+/// @brief get it compere verb
+/// @param
+/// @param
+/// @param
+/// @return
+static char *get_compare_verb(const char *, const char *, char);
+
+/// @brief Event click button add of header
+/// @param btn 
+/// @param user_data 
+void on_button_add_verb_word(GtkWidget *btn, gpointer user_data);
+
 static void app_main_dispose(GObject *object)
 {
     AppMain *self = APP_MAIN(object);
-    
+
     if (self->btn_add != NULL)
     {
         g_object_unref(self->btn_add);
@@ -30,7 +50,6 @@ static void app_main_dispose(GObject *object)
         g_object_unref(self->box);
         self->box = NULL;
     }
-    
 
     G_OBJECT_CLASS(app_main_parent_class)->dispose(object);
 }
@@ -104,47 +123,72 @@ GtkWidget *app_main_get_box_child(AppMain *self)
     return self->box;
 }
 
-/*
-GtkWidget *header, *box_content, *btn_add;
-void create_app_window(GtkWidget *window, GtkApplication *app)
+void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
 {
-    header = gtk_header_bar_new();
-    box_content = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_widget_set_hexpand(box_content, TRUE);
-    gtk_widget_set_vexpand(box_content, TRUE);
-    gtk_window_set_titlebar(GTK_WINDOW(window), header);
-    gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn English"));
-    gtk_window_set_default_size(GTK_WINDOW(window), 720, 720);
-    btn_add = gtk_button_new();
-    gtk_widget_set_visible(btn_add, FALSE);
-    gtk_button_set_icon_name(GTK_BUTTON(btn_add), "list-add-symbolic");
-    gtk_header_bar_pack_end(GTK_HEADER_BAR(header), btn_add);
-    gtk_window_set_child(GTK_WINDOW(window), box_content);
-    gtk_window_present(GTK_WINDOW(window));
+  ItemOptVerb *item = (ItemOptVerb *)user_data;
+  GtkSelectionModel *pages = gtk_stack_get_pages(item->stack);
+
+  if (gtk_selection_model_is_selected(pages, 0) == 1)
+  {
+    // g_message("seleccionado word");
+    return;
+  }
+  else
+  {
+    DialogWin *dialog = malloc(sizeof(DialogWin));
+    dialog->parent = item->parent;
+    dialog->on_save = on_save_verb;
+    dialog->on_close = on_close_verb;
+    WinVerb *win = win_verb_new();
+    win_verb_load_widget(win,item->parent, "Add Verb", 1, dialog, item->verb);
+  }
 }
 
-void add_app_content(GtkWidget *widget)
+static char *get_compare_verb(const char *value, const char *compare, char replace)
 {
-    gtk_box_append(GTK_BOX(box_content), widget);
+    char *str = malloc(strlen(value) + 1);
+    strcpy(str, value);
+
+    for (int i = 0; i < strlen(value); i++)
+    {
+
+        if (strlen(value) >= strlen(compare))
+        {
+            if (value[i] == compare[i])
+            {
+                str[i] = replace;
+            }
+            else
+            {
+                str[i] = value[i];
+            }
+        }
+    }
+    return str;
 }
 
-GtkWidget *get_app_header_bar()
+void on_save_verb(GtkWidget *btn, gpointer data)
 {
-    return header;
+    ItemVerbWidget *item = (ItemVerbWidget *)data;
+    GtkEntryBuffer *bfbase = gtk_entry_get_buffer(item->base);
+    GtkEntryBuffer *bfv2 = gtk_entry_get_buffer(item->v2);
+    GtkEntryBuffer *bfv3 = gtk_entry_get_buffer(item->v3);
+    GtkEntryBuffer *bfing = gtk_entry_get_buffer(item->ing);
+
+    gtk_label_set_label(item->data->present, gtk_entry_buffer_get_text(bfbase));
+
+    char *new_v2 = get_compare_verb(gtk_entry_buffer_get_text(bfv2), gtk_entry_buffer_get_text(bfbase), '*');
+    char *new_v3 = get_compare_verb(gtk_entry_buffer_get_text(bfv3), gtk_entry_buffer_get_text(bfv2), '-');
+    char *new_ing = get_compare_verb(gtk_entry_buffer_get_text(bfing), gtk_entry_buffer_get_text(bfbase), '*');
+
+    gtk_label_set_label(item->data->past, new_v2);
+    gtk_label_set_label(item->data->participle, new_v3);
+    gtk_label_set_label(item->data->baseing, new_ing);
+
+    gtk_window_close(item->win);
 }
 
-GtkWidget *get_app_btn_add()
+void on_close_verb(GtkWidget *btn, gpointer data)
 {
-    return btn_add;
+    gtk_window_close(GTK_WINDOW(data));
 }
-
-void load_btn_add_header(ItemVerbs *items, GtkWidget *stack, GtkWidget *window)
-{
-    ItemOptVerb *opt = malloc(sizeof(ItemOptVerb));
-    opt->stack = GTK_STACK(stack);
-    opt->parent = GTK_WINDOW(window);
-    opt->verb = items;
-
-    g_signal_connect(btn_add, "clicked", G_CALLBACK(on_button_add_verb_word), (gpointer)opt);
-}
-*/

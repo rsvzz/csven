@@ -1,6 +1,5 @@
 inc_src = include_directories('../../src', '../../include')
 src_files = files([
-    'optionverb.c',
     'appmain.c',
     'mapcss.c',
     'nav.c',
