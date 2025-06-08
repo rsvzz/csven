@@ -1,7 +1,6 @@
 #pragma once
 #include <gtk-4.0/gtk/gtk.h>
 #include "../../include/create_verb_win.h"
-#include "../../include/option_verb.h"
 #include <glib-2.0/glib-object.h>
 
 /// @brief Crear ventana Verbs
