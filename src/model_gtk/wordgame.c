@@ -94,7 +94,7 @@ void word_game_load_button(WordGame *self, GtkGrid *grid, int x, int y)
             item->status = 0;
             n++;
 
-            gtk_widget_set_size_request(btn, 60, 60);
+            gtk_widget_set_size_request(btn, 70, 70);
 
             g_queue_push_tail(self->qbutton, item);
             gtk_grid_attach(grid, btn, i, j, 1, 1);

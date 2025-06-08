@@ -15,7 +15,7 @@ void load_path_css()
     css_path = g_build_path(G_DIR_SEPARATOR_S, g_path_get_dirname(exe_path), "../share/csven/style/io.github.rsvzz.csven.css", NULL); // publish
     g_free(exe_path);
     gtk_css_provider_load_from_path(css_provider, css_path); // meson install publish
-    //gtk_css_provider_load_from_path(css_provider, "style/io.github.rsvzz.csven.css"); // make only dev
+    //gtk_css_provider_load_from_path(css_provider, "../style/io.github.rsvzz.csven.css"); // make only dev
 
     gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                                GTK_STYLE_PROVIDER(css_provider),

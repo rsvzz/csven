@@ -1,56 +1,58 @@
-.title_btn{
-    font-size: 16px;
-    font-style: normal;
-    font-family: monospace;
-}
-
-.txtEntry{
-    font-size: 16px;
-    font-style: normal;
-    font-family: monospace;
-}
-.game_btn{
+.title_btn {
     font-size: 18px;
     font-style: normal;
     font-family: monospace;
-    border-radius:10px 10px;
 }
 
-.button{
+.txtEntry {
     font-size: 16px;
+    font-style: normal;
+    font-family: monospace;
+}
+
+.game_btn {
+    font-size: 20px;
+    font-style: normal;
+    font-family: monospace;
+    border-radius: 10px 10px;
+    margin: 5px;
+}
+
+.button {
+    font-size: 20px;
     font-family: monospace;
     font-style: normal;
-    border-radius:10px 10px;
+    border-radius: 10px 10px;
     padding: 5px;
 }
 
-.button_complete{
+.button_complete {
     font-size: 18px;
     font-style: normal;
-    border-radius:10px 10px;
+    border-radius: 10px 10px;
     color: blanchedalmond;
     background: green;
 }
 
-.game_btn_complete{
+.game_btn_complete {
     font-size: 20px;
-    background: rgb(17, 66, 99);
+    background: rgb(3, 100, 165);
     color: blanchedalmond;
-    font-style:normal;
+    font-style: normal;
     font-weight: bold;
-    border: 3px solid rgb(3, 17, 43);
-    border-radius:20px 20px;
+    border: 3px solid rgb(146, 168, 209);
+    border-radius: 10px 10px;
 }
 
-.game_btn:hover{
+.game_btn:hover {
     font-size: 20px;
-    background: rgb(37, 146, 27);
+    background: rgb(23, 139, 52);
     color: blanchedalmond;
-    border: 1px solid rgb(6, 44, 1);
-    border-radius:15px 15px;
+    border: 2px solid rgb(208, 214, 208);
+    border-radius: 15px 15px;
 }
 
-.lbl_compare{
+.lbl_compare {
     font-size: 45px;
     font-style: normal;
     font-family: monospace;
