@@ -26,6 +26,15 @@
   <url type="bugtracker">https://github.com/rsvzz/csven.git</url>
 
   <releases>
+
+  <release version="0.1.8" date="2025-06-07">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>the codicus was restructured and visual changes</li>
+        </ul>
+      </description>
+    </release>
   
   <release version="0.1.5" date="2025-05-22">
       <description translate="no">
@@ -56,25 +65,17 @@
   </releases>
  
    <screenshots>
+
       <screenshot type="default">
         <caption>Main window of csven</caption>
-        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/csven/2e38e7021846857a80c2730084925b691b756f30/data/screenshot/screenshot_mainv2.png</image>
+        <image type="source" width="720" height="720">https://raw.githubusercontent.com/rsvzz/csven/7acef0d9f0932fc6f4f4d13283d5160c870bc74b/data/screenshot/sc_main.png</image>
       </screenshot>
 
       <screenshot>
         <caption>Option Verb</caption>
-        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/csven/3a09b4ae5e400a77ed3467b6d3eb72e599d44762/data/screenshot/screenshot-verb.png</image>
+        <image type="source" width="720" height="720">https://raw.githubusercontent.com/rsvzz/csven/7acef0d9f0932fc6f4f4d13283d5160c870bc74b/data/screenshot/sc_verb.png</image>
       </screenshot>
 
-      <screenshot>
-        <caption>Add verb for compare</caption>
-        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/csven/3a09b4ae5e400a77ed3467b6d3eb72e599d44762/data/screenshot/screenshot-verb-add.png</image>
-      </screenshot>
-
-      <screenshot>
-        <caption>Verb show compare</caption>
-        <image type="source" width="800" height="600">https://raw.githubusercontent.com/rsvzz/csven/2e38e7021846857a80c2730084925b691b756f30/data/screenshot/screenshot_verbv2.png</image>
-      </screenshot>
   </screenshots>
 
   <content_rating type="oars-1.1" />
