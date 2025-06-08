@@ -141,6 +141,8 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
     dialog->on_close = on_close_verb;
     WinVerb *win = win_verb_new();
     win_verb_load_widget(win,item->parent, "Add Verb", 1, dialog, item->verb);
+    free(dialog);
+    dialog = NULL;
   }
 }
 

@@ -24,7 +24,6 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header), gtk_label_new("To Learn English"));
   gtk_window_set_default_size(GTK_WINDOW(window), 720, 720);
 
-  // create_app_window(window, app);
   load_path_css();
 
   StackOption *stack_opt = stack_option_new();
@@ -33,24 +32,16 @@ void activate(GtkApplication *app, gpointer user_data)
 
   PageWord *p_word = page_word_new();
   page_word_load_widget(p_word);
-  //page_word_load_all_widget(p_word);
   page_word_load_create_grid_for_game(p_word);
-  // create_nav(app_main_get_option_header_add(win));
-  // create_page_word();
-  // load_game_for_grid();
   stack_option_add_stack_child(stack_opt, page_word_get_box_content(p_word), "word", "Word");
-  // add_page_set_stack(get_box_word(), "word", "Word");
-  //create_page_verb();
+
   PageVerb *p_verb = page_verb_new();
   page_verb_load_widget(p_verb);
-
   app_main_load_btn_add_header(w_app, stack_option_get_stack(stack_opt), window, page_verb_get_items_verb(p_verb));
-  //^load_btn_add_header(get_item_verb(), stack_option_get_stack(stack), window);
   stack_option_add_stack_child(stack_opt, page_verb_get_box(p_verb), "verb", "Verb");
-  // add_page_set_stack(get_box_verb(), "verb", "Verb");
-  // add_app_content(get_box_page());
-  
+
   app_main_add_widget_box_child(w_app, stack_option_get_box_page(stack_opt));
+  
   gtk_window_set_child(GTK_WINDOW(window), app_main_get_box_child(w_app));
   gtk_window_present(GTK_WINDOW(window));
 }
