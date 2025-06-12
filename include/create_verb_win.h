@@ -1,5 +1,5 @@
 #pragma once
-#include <gtk-4.0/gtk/gtk.h>
+#include <libadwaita-1/adwaita.h>
 #include <glib-2.0/glib-object.h>
 
 typedef struct dialog_win
@@ -22,7 +22,7 @@ typedef struct{
 typedef struct
 {
     /* data */
-    GtkStack *stack;
+    AdwViewStack *stack;
     GtkWindow *parent;
     ItemVerbs *verb;
 } ItemOptVerb;

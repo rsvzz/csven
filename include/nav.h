@@ -1,5 +1,5 @@
 #pragma once
-#include <gtk-4.0/gtk/gtk.h>
+#include <libadwaita-1/adwaita.h>
 #include <glib-2.0/glib-object.h>
 
 #define STACK_OPTION_TYPE stack_option_get_type()
@@ -17,7 +17,7 @@ GtkWidget *stack_option_get_stack(StackOption *self);
 /// @brief load define
 /// @param self 
 void stack_option_load_all(StackOption * self);
-GtkStackPage *stack_option_add_stack_child(StackOption *self, GtkWidget *child, const char *name, const char *title);
+AdwViewStackPage *stack_option_add_stack_child(StackOption *self, GtkWidget *child, const char *name, const char *title, const char* icon_name);
 
 /*
     /// @brief Create siderbar

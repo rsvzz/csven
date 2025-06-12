@@ -83,14 +83,14 @@ AppMain *app_main_new(void)
 
 void app_main_set_opt_window(AppMain *self)
 {
-    self->header = gtk_header_bar_new();
+    self->header = adw_header_bar_new();
     self->btn_add = gtk_button_new();
     self->box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_widget_set_hexpand(self->box, TRUE);
     gtk_widget_set_vexpand(self->box, TRUE);
     gtk_widget_set_visible(self->btn_add, FALSE);
-    gtk_button_set_icon_name(GTK_BUTTON(self->btn_add), "list-add-symbolic");
-    gtk_header_bar_pack_end(GTK_HEADER_BAR(self->header), self->btn_add);
+    gtk_button_set_icon_name(GTK_BUTTON(self->btn_add), "window-new-symbolic");
+    adw_header_bar_pack_end(ADW_HEADER_BAR(self->header), self->btn_add);
 }
 
 GtkWidget *app_main_get_option_header_add(AppMain *self)
@@ -111,7 +111,7 @@ void app_main_add_widget_box_child(AppMain *self, GtkWidget *child)
 void app_main_load_btn_add_header(AppMain *self, GtkWidget *stack, GtkWidget *window, ItemVerbs *items)
 {
     ItemOptVerb *opt = malloc(sizeof(ItemOptVerb));
-    opt->stack = GTK_STACK(stack);
+    opt->stack = ADW_VIEW_STACK(stack);
     opt->parent = GTK_WINDOW(window);
     opt->verb = items;
 
@@ -126,7 +126,7 @@ GtkWidget *app_main_get_box_child(AppMain *self)
 void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
 {
   ItemOptVerb *item = (ItemOptVerb *)user_data;
-  GtkSelectionModel *pages = gtk_stack_get_pages(item->stack);
+  GtkSelectionModel *pages = adw_view_stack_get_pages(item->stack);
 
   if (gtk_selection_model_is_selected(pages, 0) == 1)
   {

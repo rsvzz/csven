@@ -1,5 +1,5 @@
 #pragma once
-#include <gtk-4.0/gtk/gtk.h>
+#include <libadwaita-1/adwaita.h>
 #include <glib-2.0/glib-object.h>
 #include "create_verb_win.h"
 

@@ -57,17 +57,16 @@ static void stack_option_class_init(StackOptionClass *Klass)
     object_class->finalize = stack_option_finalize;
 };
 
-static void stack_option_init(StackOption *self)
-{
-    //obj gtk no here problem
+static void stack_option_init(StackOption *self) {
+    // obj gtk no here problem
 };
 
-void stack_option_load_all(StackOption * self){
-    self->stack = gtk_stack_new();
-    self->siderbar = gtk_stack_sidebar_new();
-    self->box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-    gtk_stack_sidebar_set_stack(GTK_STACK_SIDEBAR(self->siderbar), GTK_STACK(self->stack));
-
+void stack_option_load_all(StackOption *self)
+{
+    self->stack = adw_view_stack_new();
+    self->siderbar = adw_view_switcher_new();
+    self->box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    adw_view_switcher_set_stack(ADW_VIEW_SWITCHER(self->siderbar), ADW_VIEW_STACK(self->stack));
     gtk_box_append(GTK_BOX(self->box), self->siderbar);
     gtk_box_append(GTK_BOX(self->box), self->stack);
 
@@ -93,14 +92,14 @@ GtkWidget *stack_option_get_stack(StackOption *self)
     return self->stack;
 }
 
-GtkStackPage *stack_option_add_stack_child(StackOption *self, GtkWidget *child, const char *name, const char *title)
+AdwViewStackPage *stack_option_add_stack_child(StackOption *self, GtkWidget *child, const char *name, const char *title, const char * icon_name)
 {
-    return gtk_stack_add_titled(GTK_STACK(self->stack), child, name, title);
+    return adw_view_stack_add_titled_with_icon(ADW_VIEW_STACK(self->stack), child, name, title, icon_name);
 }
 
 void on_stack_page_changed(GObject *_stack, GParamSpec *param, gpointer user_data)
 {
-    const char *visible_child = gtk_stack_get_visible_child_name(GTK_STACK(_stack));
+    const char *visible_child = adw_view_stack_get_visible_child_name(ADW_VIEW_STACK(_stack));
     if (strcmp(visible_child, "verb") == 0)
     {
         gtk_widget_set_visible((GTK_WIDGET(user_data)), TRUE);

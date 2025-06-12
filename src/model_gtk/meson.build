@@ -8,7 +8,7 @@ src_files = files([
     'wordgame.c'
 ])
 
-gtk_dep = dependency('gtk4')
+gtk_dep = dependency('libadwaita-1')
 glib_dep = dependency('glib-2.0')
 gobj_dep = dependency('gobject-2.0')
 
