@@ -27,6 +27,15 @@
 
   <releases>
 
+  <release version="0.1.10" date="2025-06-16">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>add libadwaita for interface</li>
+        </ul>
+      </description>
+    </release>
+
   <release version="0.1.8" date="2025-06-07">
       <description translate="no">
         <p>Changed:</p>
