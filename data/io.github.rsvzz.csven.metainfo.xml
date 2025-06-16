@@ -75,9 +75,9 @@
  
    <screenshots>
 
-      <screenshot type="default">
+   <screenshot type="default">
         <caption>Main window of csven</caption>
-        <image type="source" width="720" height="720">https://raw.githubusercontent.com/rsvzz/csven/7acef0d9f0932fc6f4f4d13283d5160c870bc74b/data/screenshot/sc_main.png</image>
+        <image type="source" width="800" height="800">https://raw.githubusercontent.com/rsvzz/csven/c4fe73adb4de5a2e64993ae3366ee2ea77462714/data/screenshot/screenshot_mainv3.png</image>
       </screenshot>
 
       <screenshot>
