@@ -5,7 +5,9 @@ src_files = files([
     'nav.c',
     'wordpg.c',
     'verbpg.c',
-    'wordgame.c'
+    'wordgame.c',
+    'gdragdrop.c',
+    'dragpg.c'
 ])
 
 gtk_dep = dependency('libadwaita-1')

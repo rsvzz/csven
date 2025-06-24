@@ -6,6 +6,7 @@
 #include "../include/nav.h"
 #include "../include/wordpg.h"
 #include "../include/verbpg.h"
+#include "../include/dragpg.h"
 
 static GtkWidget *window = NULL;
 void activate(GtkApplication *app, gpointer user_data)
@@ -45,6 +46,10 @@ void activate(GtkApplication *app, gpointer user_data)
   page_word_load_create_grid_for_game(p_word);
 
   stack_option_add_stack_child(stack_opt, page_word_get_box_content(p_word), "word", "Word", "input-dialpad-symbolic");
+
+  PageDrag *p_drag = page_drag_new();
+  page_drag_set_head(p_drag);
+  stack_option_add_stack_child(stack_opt, page_drag_get_content(p_drag), "drag", "Game", "list-drag-handle-symbolic");
 
   PageVerb *p_verb = page_verb_new();
   page_verb_load_widget(p_verb);
