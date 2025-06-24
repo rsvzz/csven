@@ -46,7 +46,8 @@ void set_button_random_game(GQueue *, const char *);
 static void drag_game_class_init(DragGameClass *Klass) {
 };
 
-void on_restare_button_game(ItemMove* self, gpointer data){
+void on_restare_button_game(ItemMove *self, gpointer data)
+{
     g_print("End Game");
 }
 
@@ -119,15 +120,18 @@ void drag_game_set_word_grid(DragGame *self, const char *word)
             gtk_widget_set_margin_top(btn, 5);
 
             ItemMove *item = malloc(sizeof(ItemMove));
+            
             item->btn = btn;
             if (i == 0)
             {
+                gtk_widget_add_css_class(btn, "title_btn");
                 item->btn_restare = self->btn_restare;
                 g_queue_push_tail(self->qb_title, item);
             }
 
             if (i == 1)
             {
+                gtk_widget_add_css_class(btn, "game_btn");
                 g_queue_push_tail(self->qb_game, item);
             }
             gtk_grid_attach(GTK_GRID(self->grid), btn, j, i, 1, 1);
@@ -139,7 +143,8 @@ GtkWidget *drag_game_get_content(DragGame *self)
 {
     return self->grid;
 }
-const char* drag_game_get_name(DragGame *self){
+const char *drag_game_get_name(DragGame *self)
+{
     return self->name;
 }
 
@@ -147,8 +152,8 @@ void drag_game_set_data_button(DragGame *self)
 {
     set_button_title_game(self, self->name);
     set_button_random_game(self->qb_game, self->name);
-    //drag_game_set_word_grid(self, self->name);
-    //reiniciar los button
+    // drag_game_set_word_grid(self, self->name);
+    // reiniciar los button
 }
 
 void drag_game_set_refresh_button(DragGame *self)
@@ -157,7 +162,8 @@ void drag_game_set_refresh_button(DragGame *self)
     set_button_random_game(self->qb_game, self->name);
 }
 
-void drag_game_set_button_restare(DragGame *self, GtkWidget *button){
+void drag_game_set_button_restare(DragGame *self, GtkWidget *button)
+{
     self->btn_restare = button;
 }
 
@@ -175,8 +181,11 @@ void set_button_title_game(DragGame *self, const char *name)
         item->qb_game = self->qb_game;
         item->gb_title = aux;
 
-        if(gtk_widget_get_sensitive(item->btn) == FALSE){
+        if (gtk_widget_get_sensitive(item->btn) == FALSE)
+        {
             gtk_widget_set_sensitive(item->btn, TRUE);
+            gtk_widget_remove_css_class(item->btn, "game_btn_complete");
+            gtk_widget_add_css_class(item->btn, "title_btn");
             gtk_widget_unset_state_flags(item->btn, GTK_STATE_FLAG_DROP_ACTIVE);
         }
         GtkDropTarget *drop_target = gtk_drop_target_new(G_TYPE_STRING, GDK_ACTION_COPY);
@@ -207,7 +216,8 @@ void set_button_random_game(GQueue *queue, const char *name)
         ItemMove *item = g_queue_peek_nth(aux, i);
         item->index = i;
 
-        if(gtk_widget_get_sensitive(item->btn) == FALSE){
+        if (gtk_widget_get_sensitive(item->btn) == FALSE)
+        {
             gtk_widget_set_sensitive(item->btn, TRUE);
         }
 
@@ -245,10 +255,6 @@ void set_button_random_game(GQueue *queue, const char *name)
         new_name[l] = '\0';
 
         gtk_button_set_label(GTK_BUTTON(item->btn), str);
-
-        
-
-        
     }
 
     g_free(new_name);
@@ -312,8 +318,9 @@ static gboolean on_drop(GtkDropTarget *target, const GValue *value, double x, do
 
         if (strcmp(str_d, str_r) == 0 && item_t->index == item->index)
         {
-            //g_print("remove event and #%d status %d \n", item_t->index, item_t->status);
-            // gtk_button_set_label(GTK_BUTTON(item->btn), text);
+            // g_print("remove event and #%d status %d \n", item_t->index, item_t->status);
+            //  gtk_button_set_label(GTK_BUTTON(item->btn), text);
+            gtk_widget_add_css_class(item->btn, "game_btn_complete");
             gtk_widget_remove_controller(item_t->btn, GTK_EVENT_CONTROLLER(target));
             gtk_widget_set_sensitive(GTK_WIDGET(item_t->btn), FALSE);
 
@@ -323,10 +330,12 @@ static gboolean on_drop(GtkDropTarget *target, const GValue *value, double x, do
             // g_queue_free(aux);
             item_t->status = 1;
 
-            if(item_t->index == (len - 1)){
+            if (item_t->index == (len - 1))
+            {
                 gtk_widget_set_sensitive(item->btn_restare, TRUE);
+                gtk_widget_add_css_class(item->btn_restare, "button_complete");
             }
-                
+
             return TRUE;
         }
     }
