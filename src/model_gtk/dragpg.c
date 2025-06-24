@@ -37,7 +37,7 @@ static void page_drag_init(PageDrag *self)
   gtk_widget_add_css_class(self->btn_restore, "button");
   gtk_widget_add_css_class(self->txt_name, "txtEntry");
 
-  gtk_widget_set_margin_top(self->bx_head, 20);
+  gtk_widget_set_margin_top(self->bx_head, 10);
   gtk_widget_set_margin_top(self->bx_content, 20);
 
   gtk_widget_set_margin_end(self->txt_name, 5);
