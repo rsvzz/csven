@@ -27,6 +27,15 @@
 
   <releases>
 
+  <release version="0.1.12" date="2025-06-24">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>add new option add drag and drop</li>
+        </ul>
+      </description>
+    </release>
+
   <release version="0.1.10" date="2025-06-16">
       <description translate="no">
         <p>Changed:</p>
@@ -78,6 +87,11 @@
    <screenshot type="default">
         <caption>Main window of csven</caption>
         <image type="source" width="800" height="800">https://raw.githubusercontent.com/rsvzz/csven/c4fe73adb4de5a2e64993ae3366ee2ea77462714/data/screenshot/screenshot_mainv3.png</image>
+      </screenshot>
+
+       <screenshot>
+        <caption>Option Drag and Drop</caption>
+        <image type="source" width="720" height="720">https://raw.githubusercontent.com/rsvzz/csven/4c17aae2ad6092c9ab2020e282ecd09a715671bf/data/screenshot/sc_drag_opt.png</image>
       </screenshot>
 
       <screenshot>
