@@ -135,7 +135,6 @@ int word_game_get_status_change_char_to_button(WordGame *self, const char *ch, i
             game->status = 1;
             status = 1;
             break;
-            ;
         }
         else if (game->index == nrandom && game->status == 1)
         {

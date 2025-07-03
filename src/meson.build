@@ -11,6 +11,14 @@ subdir('win')
 
 #install style prefix
 install_data('../style/io.github.rsvzz.csven.css', install_dir: get_option('prefix') / 'share/csven/style')
+#icons adwaita 
+icons_file = files(
+   '../data/icons/input-dialpad-symbolic.svg',
+   '../data/icons/input-keyboard-symbolic.svg',
+   '../data/icons/list-drag-handle-symbolic.svg',
+   '../data/icons/window-new-symbolic.svg',
+)
+install_data('../data/icons/'), install_dir: get_option('prefix') / 'share/icons/csven/symbolic/apps')
 syslocal = host_machine.system()
 
 # Instala el archivo solo en Linux
