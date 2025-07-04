@@ -18,7 +18,7 @@ icons_file = files(
    '../data/icons/list-drag-handle-symbolic.svg',
    '../data/icons/window-new-symbolic.svg',
 )
-install_data(icons_file, install_dir: get_option('prefix') / 'share/icons/csven/scalable/apps')
+install_data(icons_file, install_dir: get_option('prefix') / 'share/icons/hicolor/scalable/apps')
 syslocal = host_machine.system()
 
 # Instala el archivo solo en Linux
