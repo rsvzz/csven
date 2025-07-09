@@ -43,8 +43,8 @@ void word_game_clear_char_to_button_for_grid(WordGame* self);
 /// @param self 
 /// @param ch 
 /// @param nrandom 
-/// @return status change
-int word_game_get_status_change_char_to_button(WordGame* self, const char *ch, int nrandom);
+/// @return 
+void word_game_get_status_change_char_to_button(WordGame* self, const char *ch, int nrandom);
 
 /// @brief Title button
 /// @param self 

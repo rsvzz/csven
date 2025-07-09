@@ -41,6 +41,7 @@ gpointer thread_create_grid_for_game(gpointer gdata);
 static void page_word_dispose(GObject *object)
 {
   PageWord *self = PAGE_WORD(object);
+  g_object_unref(self->game);
   /*
   if (self->btn_restare != NULL)
   {

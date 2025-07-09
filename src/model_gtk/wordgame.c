@@ -6,8 +6,13 @@
 typedef struct
 {
     GtkButton *btn;
+    /// @brief index main
     int index;
     int status;
+    /// @brief index remove list 
+    int idex;
+    /// @brief button pending
+    int max;
 } ItemGameButton;
 
 struct _WordGame
@@ -18,6 +23,8 @@ struct _WordGame
     GQueue *qbutton;
     /// @brief add title button list
     GQueue *qtbutton;
+    /// @brief remove list
+    GQueue *qbutton_aux;
     char *name;
     /// @brief create button total
     int max;
@@ -36,6 +43,15 @@ void on_click_button_restore(GtkButton *btn, gpointer data);
 static void word_game_dispose(GObject *object)
 {
     WordGame *self = WORD_GAME(object);
+    if(self->qbutton != NULL)
+        g_queue_free(self->qbutton);
+
+    if(self->qtbutton != NULL)
+        g_queue_free(self->qtbutton);
+    
+    if(self->qbutton_aux != NULL)
+        g_queue_free(self->qbutton_aux);
+    
 
     G_OBJECT_CLASS(word_game_parent_class)->dispose(object);
 }
@@ -75,7 +91,8 @@ void word_game_load_button(WordGame *self, GtkGrid *grid, int x, int y)
     int n = 0;
     self->qbutton = g_queue_new();
     self->qtbutton = g_queue_new();
-
+    self->qbutton_aux = NULL;
+    
     for (size_t i = 0; i < y; i++)
     {
 
@@ -107,10 +124,18 @@ void word_game_load_button(WordGame *self, GtkGrid *grid, int x, int y)
 void word_game_clear_char_to_button_for_grid(WordGame *self)
 {
     GQueue *aux = self->qbutton;
-
+    if(self->qbutton_aux != NULL){
+        g_queue_free(self->qbutton_aux);
+        self->qbutton_aux = NULL;
+    }
+        
+        
+    
+    
     for (guint i = 0; i < g_queue_get_length(aux); i++)
     {
         ItemGameButton *game = g_queue_peek_nth(aux, i);
+        //g_print("clear : %s \n",  gtk_button_get_label(game->btn));
         game->status = 0; // set no click
         gtk_button_set_label(game->btn, '\0');
         gtk_widget_remove_css_class(GTK_WIDGET(game->btn), "game_btn_complete");
@@ -119,36 +144,52 @@ void word_game_clear_char_to_button_for_grid(WordGame *self)
     }
 }
 
-int word_game_get_status_change_char_to_button(WordGame *self, const char *ch, int nrandom)
+void word_game_get_status_change_char_to_button(WordGame *self, const char *ch, int nrandom)
 {
 
-    GQueue *aux = self->qbutton;
+    GQueue *aux = self->qbutton_aux;
+    if(self->qbutton_aux == NULL){
+        aux = g_queue_copy(self->qbutton);
+    }
 
-    int status = 0;
+    //order idex
+    int j = 0;
+    for (guint i = 0; i < g_queue_get_length(aux); i++)
+    {
+         ItemGameButton *game = g_queue_peek_nth(aux, i);
+         game->idex = j;
+         j++;
+    }
+    //j + 1 rand() % self->max remove 1 add 1 ++ 
+    self->max =(j+1);
 
     for (guint i = 0; i < g_queue_get_length(aux); i++)
     {
         ItemGameButton *game = g_queue_peek_nth(aux, i);
-        if (game->index == nrandom && game->status == 0)
+        if (game->idex == nrandom && game->status == 0)
         {
             gtk_button_set_label(game->btn, ch);
+            g_queue_remove(aux, game);
             game->status = 1;
-            status = 1;
             break;
         }
-        else if (game->index == nrandom && game->status == 1)
+        else if (game->idex == nrandom && game->status == 1)
         {
-            status = 0;
             break;
         }
     }
 
-    return status;
+    //change 
+    self->qbutton_aux = aux;
 }
 
 void word_game_load_char_title_game(WordGame *self, const char *name)
 {
-    g_queue_free(self->qtbutton);
+    if(self->qtbutton != NULL){
+        g_queue_free(self->qtbutton);
+        self->qtbutton = NULL;
+    }
+        
     self->qtbutton = g_queue_new();
     // clear box content
     //*********
@@ -230,7 +271,6 @@ ItemBtnGame *word_game_get_index_title_button_char(WordGame *self, GtkButton *bt
 
 void word_game_set_name_to_button(WordGame *self)
 {
-    int sttus = 0;
     srand(time(NULL));
     GtkWidget *btn = GTK_WIDGET(self->btn_restore);
     if (gtk_widget_get_sensitive(btn) == TRUE)
@@ -247,15 +287,9 @@ void word_game_set_name_to_button(WordGame *self)
         char str[2];
         str[0] = ch;
         str[1] = '\0';
-
-        while (sttus == 0)
-        {
-
-            int nrandom = rand() % self->max;
-
-            sttus = word_game_get_status_change_char_to_button(self, (const char *)str, nrandom);
-        }
-        sttus = 0;
+        int nrandom = rand() % self->max;
+ 
+        word_game_get_status_change_char_to_button(self, (const char *)str, nrandom);
     }
     // g_print("name : %s \n", self->name );
     word_game_load_char_title_game(self, self->name);
@@ -264,7 +298,6 @@ void word_game_set_name_to_button(WordGame *self)
 void on_click_button_restore(GtkButton *btn, gpointer data)
 {
     WordGame *game = (WordGame *)data;
-
     const char *name = gtk_button_get_label(btn);
     if (name != NULL)
     {
