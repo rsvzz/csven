@@ -161,8 +161,8 @@ void word_game_get_status_change_char_to_button(WordGame *self, const char *ch, 
          j++;
     }
     //j + 1 rand() % self->max remove 1 add 1 ++ 
-    self->max =(j+1);
-
+    self->max =j;
+    //g_print("#%d = %s -> #%d", nrandom, ch, self->max);
     for (guint i = 0; i < g_queue_get_length(aux); i++)
     {
         ItemGameButton *game = g_queue_peek_nth(aux, i);
@@ -170,11 +170,14 @@ void word_game_get_status_change_char_to_button(WordGame *self, const char *ch, 
         {
             gtk_button_set_label(game->btn, ch);
             g_queue_remove(aux, game);
+            self->max --;
+            //g_print(" :) \n");
             game->status = 1;
             break;
         }
         else if (game->idex == nrandom && game->status == 1)
         {
+            //g_print("fail #%d \n", nrandom);
             break;
         }
     }
@@ -280,7 +283,7 @@ void word_game_set_name_to_button(WordGame *self)
         gtk_widget_set_sensitive(btn, FALSE);
     }
     word_game_clear_char_to_button_for_grid(self);
-
+    //g_print("********************** \n");
     for (int i = 0; self->name[i] != '\0'; i++)
     {
         char ch = self->name[i];
