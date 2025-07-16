@@ -273,7 +273,7 @@ void on_save_verb(GtkWidget *btn, gpointer data)
     gtk_label_set_label(item->data->past, new_v2);
     gtk_label_set_label(item->data->participle, new_v3);
     gtk_label_set_label(item->data->baseing, new_ing);
-
+    gtk_check_button_set_active(item->data->is_regular, gtk_check_button_get_active(item->isRegular));
     gtk_window_close(item->win);
 }
 

@@ -1,7 +1,9 @@
 inc_src = include_directories('../src', '../include')
 #subdir('model')
+
+subdir('win') #first
 subdir('model_gtk')
-subdir('win')
+
 
 #dont use more
 #questk_dep = dependency('questk', required: true)
@@ -39,7 +41,7 @@ executable('csven',
   include_directories: [inc_src],
   dependencies: [gtk_dep],
    link_with: [
-      mgtk_dep, wingtk_dep
+      libmodelgtk, libwindep
    ],
    install: true
   #link_args: ['/SUBSYSTEM:WINDOWS'] #windows,,

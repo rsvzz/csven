@@ -89,7 +89,8 @@ void load_verb(GtkBox *box, ItemVerbs *item)
     item->past = GTK_LABEL(gtk_label_new("Past"));
     item->participle = GTK_LABEL(gtk_label_new("Participle"));
     item->baseing = GTK_LABEL(gtk_label_new("Verb ing"));
-
+    item->is_regular = GTK_CHECK_BUTTON(gtk_check_button_new_with_label("Is Regular"));
+    gtk_widget_set_sensitive(GTK_WIDGET(item->is_regular), FALSE);
     // item->space = GTK_SEPARATOR(gtk_separator_new(GTK_ORIENTATION_HORIZONTAL));
 
     gtk_widget_add_css_class(GTK_WIDGET(item->present), "lbl_compare");
@@ -111,6 +112,7 @@ void load_verb(GtkBox *box, ItemVerbs *item)
     gtk_grid_attach(item->grid, GTK_WIDGET(item->participle), 0, 2, 1, 1);
     gtk_grid_attach(item->grid, op_2, 1, 2, 1, 1);
     gtk_grid_attach(item->grid, GTK_WIDGET(item->baseing), 0, 3, 1, 1);
+    gtk_grid_attach(item->grid, GTK_WIDGET(item->is_regular), 0, 4, 1, 1);
 
     gtk_grid_set_column_spacing(item->grid, 5);
     gtk_grid_set_row_spacing(item->grid, 5);
@@ -122,5 +124,6 @@ void load_verb(GtkBox *box, ItemVerbs *item)
     gtk_widget_set_halign(GTK_WIDGET(item->participle), GTK_ALIGN_START);
     gtk_widget_set_halign(GTK_WIDGET(item->baseing), GTK_ALIGN_START);
     gtk_widget_set_halign(GTK_WIDGET(box), GTK_ALIGN_CENTER);
+    gtk_widget_set_halign(GTK_WIDGET(item->is_regular), GTK_ALIGN_END);
     gtk_box_append(box, GTK_WIDGET(item->grid));
 }

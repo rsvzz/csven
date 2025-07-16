@@ -15,6 +15,7 @@ typedef struct{
     GtkLabel *past;
     GtkLabel *participle;
     GtkLabel *baseing;
+    GtkCheckButton *is_regular;
     GtkGrid *grid;
     GtkSeparator *space;
 } ItemVerbs;

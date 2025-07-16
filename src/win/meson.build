@@ -10,9 +10,10 @@ gobj_dep = dependency('gobject-2.0')
 #    link_args: ['-L/usr/local/lib', '-lquestk'],
 #)
 
-wingtk_dep = static_library(
-    'm_win',
+libwindep = static_library(
+    'mwin',
     sources: src_files,
     include_directories: [inc_src],
     dependencies: [gtk_dep, glib_dep, gobj_dep],
+    install:true
 )
