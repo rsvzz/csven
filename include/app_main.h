@@ -32,6 +32,7 @@ void app_main_add_widget_box_child(AppMain *self, GtkWidget* child);
 /// @param self 
 /// @return 
 GtkWidget *app_main_get_box_child(AppMain *self);
+GtkWidget *app_main_get_popover(AppMain *self);
 /*
 /// @brief create inteface main
 /// @param  

@@ -9,6 +9,19 @@
 #include "../include/dragpg.h"
 
 static GtkWidget *window = NULL;
+
+// Función callback que se ejecuta al cerrar la ventana
+static gboolean on_window_close_request(GtkWindow *window, gpointer user_data) {
+    //g_print("🧹 Cerrando ventana...\n");
+
+    gtk_widget_unparent((GtkWidget*)user_data);
+
+    // Aquí puedes liberar recursos o cancelar el cierre si lo deseas
+    // return TRUE para evitar que se cierre
+    // return FALSE para permitir el cierre
+    return FALSE;
+}
+
 void activate(GtkApplication *app, gpointer user_data)
 {
   if (window != NULL)
@@ -24,17 +37,6 @@ void activate(GtkApplication *app, gpointer user_data)
   gtk_window_set_titlebar(GTK_WINDOW(window), header);
   adw_header_bar_set_title_widget(ADW_HEADER_BAR(header), gtk_label_new("To Learn English"));
   gtk_window_set_default_size(GTK_WINDOW(window), 740, 740);
-  /*
-  GtkWidget *btn_word = gtk_toggle_button_new_with_label("Word");
-  GtkWidget *btn_verd = gtk_toggle_button_new_with_label("Verb");
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(btn_word), TRUE);
-
-  GtkWidget *box_page = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_box_append(GTK_BOX(box_page), btn_word);
-  gtk_box_append(GTK_BOX(box_page), btn_verd);
-  gtk_toggle_button_set_group(GTK_TOGGLE_BUTTON(btn_word), GTK_TOGGLE_BUTTON(btn_verd));
-  gtk_header_bar_pack_start(GTK_HEADER_BAR(header), box_page);
-  */
   load_path_css();
 
   StackOption *stack_opt = stack_option_new();
@@ -60,6 +62,9 @@ void activate(GtkApplication *app, gpointer user_data)
   app_main_add_widget_box_child(w_app, stack_option_get_box_page(stack_opt));
 
   gtk_window_set_child(GTK_WINDOW(window), app_main_get_box_child(w_app));
+
+
+  g_signal_connect(window, "close-request", G_CALLBACK(on_window_close_request), app_main_get_popover(w_app));
   gtk_window_present(GTK_WINDOW(window));
 }
 

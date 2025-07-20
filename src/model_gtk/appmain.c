@@ -35,6 +35,7 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data);
 void on_button_menu_verb_word(GtkWidget *btn, gpointer user_data);
 static void app_main_dispose(GObject *object)
 {
+    g_print("llega dispose \n");
     AppMain *self = APP_MAIN(object);
 
     if (self->btn_add != NULL)
@@ -43,13 +44,8 @@ static void app_main_dispose(GObject *object)
         self->btn_add = NULL;
     }
 
-    if (self->header != NULL)
-    {
-        g_object_unref(self->header);
-        self->header = NULL;
-    }
-
     if(self->popover != NULL){
+       
         gtk_widget_unparent(self->popover);
         self->popover = NULL;
     }
@@ -58,6 +54,12 @@ static void app_main_dispose(GObject *object)
     {
         g_object_unref(self->btn_menu);
         self->btn_menu = NULL;
+    }
+    
+    if (self->header != NULL)
+    {
+        g_object_unref(self->header);
+        self->header = NULL;
     }
 
     if (self->box != NULL)
@@ -222,14 +224,12 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data)
     }
     else
     {
-        DialogWin *dialog = malloc(sizeof(DialogWin));
-        dialog->parent = item->parent;
-        dialog->on_save = on_save_verb;
-        dialog->on_close = on_close_verb;
+        DialogWin dialog; //new memory dont need
+        dialog.parent = item->parent;
+        dialog.on_save = on_save_verb;
+        dialog.on_close = on_close_verb;
         WinVerb *win = win_verb_new();
-        win_verb_load_widget(win, item->parent, "Add Verb", 1, dialog, item->verb);
-        free(dialog);
-        dialog = NULL;
+        win_verb_load_widget(win, item->parent, "Add Verb", 1, &dialog, item->verb);
     }
 }
 
@@ -280,4 +280,8 @@ void on_save_verb(GtkWidget *btn, gpointer data)
 void on_close_verb(GtkWidget *btn, gpointer data)
 {
     gtk_window_close(GTK_WINDOW(data));
+}
+
+GtkWidget *app_main_get_popover(AppMain *self){
+    return self->popover;
 }
