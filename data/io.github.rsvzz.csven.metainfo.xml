@@ -27,6 +27,15 @@
 
   <releases>
 
+  <release version="0.1.16" date="2025-07-21">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>add about</li>
+        </ul>
+      </description>
+    </release>
+
   <release version="0.1.14" date="2025-07-10">
       <description translate="no">
         <p>Changed:</p>
