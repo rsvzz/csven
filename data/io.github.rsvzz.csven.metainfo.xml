@@ -27,6 +27,15 @@
 
   <releases>
 
+  <release version="0.1.18" date="2025-08-03">
+      <description translate="no">
+        <p>Changed:</p>
+        <ul>
+          <li>add Adwaita for interface</li>
+        </ul>
+      </description>
+    </release>
+
   <release version="0.1.16" date="2025-07-21">
       <description translate="no">
         <p>Changed:</p>
