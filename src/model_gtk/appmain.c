@@ -35,7 +35,7 @@ void on_button_add_verb_word(GtkWidget *btn, gpointer user_data);
 void on_button_menu_verb_word(GtkWidget *btn, gpointer user_data);
 static void app_main_dispose(GObject *object)
 {
-    g_print("llega dispose \n");
+    //g_print("llega dispose \n");
     AppMain *self = APP_MAIN(object);
 
     if (self->btn_add != NULL)
@@ -142,7 +142,7 @@ void show_about (GtkApplication *app)
   adw_show_about_dialog (GTK_WIDGET (gtk_application_get_active_window (app)),
                          "application-name", ("csven"),
                          "application-icon", "io.github.rsvzz.csven",
-                         "version", "0.1.16",
+                         "version", "0.1.18",
                          "copyright", "© 2025 rsvzz",
                          "issue-url", "https://github.com/rsvzz/csven/issues",
                          "license-type", GTK_LICENSE_GPL_3_0,

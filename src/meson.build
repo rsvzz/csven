@@ -35,7 +35,6 @@ if syslocal == 'linux'
 endif
 
 gtk_dep = dependency('gtk4')
-
 executable('csven',
   sources: 'main.c',
   include_directories: [inc_src],
