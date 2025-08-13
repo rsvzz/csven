@@ -27,11 +27,12 @@
 
   <releases>
 
-  <release version="0.1.18" date="2025-08-03">
+  <release version="0.1.18" date="2025-08-13">
       <description translate="no">
         <p>Changed:</p>
         <ul>
           <li>add Adwaita for interface</li>
+          <li>remove gtkmm-4.0 for c++</li>
         </ul>
       </description>
     </release>
