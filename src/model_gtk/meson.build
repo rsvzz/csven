@@ -1,13 +1,13 @@
 inc_src = include_directories('../../src', '../../include')
 src_files = files([
-    'appmain.c',
     'mapcss.c',
-    'nav.c',
     'wordpg.c',
     'verbpg.c',
     'wordgame.c',
     'gdragdrop.c',
-    'dragpg.c'
+    'dragpg.c',
+    'sv_header.c',
+    'nav_main.c'
 ])
 
 #subdir('src/win')
