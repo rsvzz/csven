@@ -98,7 +98,7 @@ void show_about (GtkApplication *app)
   adw_show_about_dialog (GTK_WIDGET (gtk_application_get_active_window (app)),
                          "application-name", ("csven"),
                          "application-icon", "io.github.rsvzz.csven",
-                         "version", "0.1.18",
+                         "version", "0.1.19",
                          "copyright", "© 2025 rsvzz",
                          "issue-url", "https://github.com/rsvzz/csven/issues",
                          "license-type", GTK_LICENSE_GPL_3_0,

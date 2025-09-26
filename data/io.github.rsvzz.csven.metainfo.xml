@@ -26,7 +26,14 @@
   <url type="bugtracker">https://github.com/rsvzz/csven.git</url>
 
   <releases>
-
+    <release version="0.1.19" date="2025-09-26">
+          <description translate="no">
+            <p>Changed:</p>
+            <ul>
+              <li>move option to header</li>
+            </ul>
+          </description>
+        </release>
   <release version="0.1.18" date="2025-08-13">
       <description translate="no">
         <p>Changed:</p>
@@ -115,16 +122,6 @@
    <screenshot type="default">
         <caption>Main window of csven</caption>
         <image type="source" width="800" height="800">https://raw.githubusercontent.com/rsvzz/csven/c4fe73adb4de5a2e64993ae3366ee2ea77462714/data/screenshot/screenshot_mainv3.png</image>
-      </screenshot>
-
-       <screenshot>
-        <caption>Option Drag and Drop</caption>
-        <image type="source" width="720" height="720">https://raw.githubusercontent.com/rsvzz/csven/4c17aae2ad6092c9ab2020e282ecd09a715671bf/data/screenshot/sc_drag_opt.png</image>
-      </screenshot>
-
-      <screenshot>
-        <caption>Option Verb</caption>
-        <image type="source" width="720" height="720">https://raw.githubusercontent.com/rsvzz/csven/7acef0d9f0932fc6f4f4d13283d5160c870bc74b/data/screenshot/sc_verb.png</image>
       </screenshot>
 
   </screenshots>
